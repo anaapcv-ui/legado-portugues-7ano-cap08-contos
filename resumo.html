@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resumo — Contos de mistério e de terror | 7º ano</title>
+<style>
+:root{--tinta:#12141a;--tinta2:#1b1f27;--tinta3:#242a35;--papel:#e9dec7;--papel2:#c6bba4;--papel3:#8d8676;--brasa:#e2652a;--brasa2:#f59a5e;--verde:#4caf7d;--vermelho:#e0524b;--amarelo:#f2d06b;--serif:Georgia,'Times New Roman',serif;--sans:'Segoe UI',system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--tinta);color:var(--papel);font-family:var(--serif);line-height:1.6;font-size:17px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+header.capa{background:linear-gradient(160deg,#1b1f27,#2a1d16 60%,#3a2114);border-bottom:3px solid var(--brasa);padding:28px 0 22px}
+header.capa .selo{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brasa2)}
+header.capa h1{font-size:28px;margin:8px 0 6px}
+header.capa p.sub{margin:0;color:var(--papel2);font-size:15px}
+nav.abas{background:var(--tinta2);border-bottom:1px solid #333}
+nav.abas .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px}
+nav.abas a{font-family:var(--sans);font-size:13px;text-decoration:none;color:var(--papel2);background:var(--tinta3);border:1px solid #39404d;border-radius:20px;padding:6px 13px;white-space:nowrap}
+nav.abas a.atual{background:var(--brasa);color:#fff;border-color:var(--brasa)}
+.barraprog{position:sticky;top:0;z-index:20;height:8px;background:#0d0f13}
+.barraprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brasa),var(--amarelo));transition:width .2s}
+section.card{background:var(--tinta2);border:1px solid #333b47;border-radius:14px;padding:20px;margin:22px 0}
+section.card h2{margin:0 0 6px;font-size:23px}
+section.card .et{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brasa2)}
+.linhaTempo{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.etapa{flex:1;min-width:150px;background:#171b22;border:1px solid #39404d;border-top:4px solid var(--brasa);border-radius:10px;padding:12px}
+.etapa b{display:block;font-family:var(--sans);font-size:15px;color:var(--brasa2);margin-bottom:4px}
+.etapa span{font-size:15px}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.flip{perspective:1000px;height:170px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip.virado .in{transform:rotateY(180deg)}
+.flip .f,.flip .v{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;border:1px solid #39404d}
+.flip .f{background:#20262f}
+.flip .v{background:#2a1d16;border-color:var(--brasa);transform:rotateY(180deg);font-size:15px;overflow:auto}
+.flip .f .tt{font-family:var(--sans);font-weight:700;font-size:17px;color:var(--brasa2)}
+.flip .f .dica{font-family:var(--sans);font-size:12px;color:var(--papel3);margin-top:8px}
+table.comp{width:100%;border-collapse:collapse;margin-top:14px;font-size:16px}
+table.comp th,table.comp td{border:1px solid #39404d;padding:10px 12px;vertical-align:top}
+table.comp th{background:var(--tinta3);color:var(--brasa2);font-family:var(--sans);font-size:14px;text-align:left}
+.livro{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:stretch}
+.parte{flex:1;min-width:160px;background:#171b22;border:1px solid #39404d;border-radius:10px;padding:12px;font-size:15px}
+.parte b{color:var(--brasa2);font-family:var(--sans)}
+.postit{background:#f2d06b;color:#3a2a06;border-radius:4px;padding:14px 16px;margin:12px 0;font-family:var(--sans);font-size:15px;box-shadow:3px 3px 0 rgba(0,0,0,.35);transform:rotate(-.5deg)}
+.postit b{color:#6b4b06}
+.alerta{background:#33171a;border:1px solid var(--vermelho);border-radius:10px;padding:13px 15px;margin:12px 0;font-family:var(--sans);font-size:15px}
+.alerta b{color:#ff9d97}
+ul.simples{padding-left:20px}
+ul.simples li{margin-bottom:8px}
+dl.glos dt{font-family:var(--sans);font-weight:700;color:var(--brasa2);margin-top:12px}
+dl.glos dd{margin:3px 0 0;font-size:16px}
+.estudei{font-family:var(--sans);font-size:14px;margin-top:14px;display:flex;align-items:center;gap:9px;color:var(--papel2)}
+.estudei input{width:18px;height:18px;accent-color:var(--brasa)}
+.btn{font-family:var(--sans);font-weight:700;border:0;border-radius:24px;padding:11px 20px;font-size:15px;cursor:pointer}
+.btn.sec{background:var(--tinta3);color:var(--papel);border:1px solid #4a5364}
+footer.salv{background:var(--tinta2);border-top:1px solid #333;margin-top:30px;padding:18px 0 40px;font-family:var(--sans);font-size:14px}
+footer.salv .linhabtn{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+footer.salv .quando{color:var(--papel3);font-size:13px}
+.proximo{display:block;text-align:center;background:var(--brasa);color:#fff;text-decoration:none;font-family:var(--sans);font-weight:700;padding:14px;border-radius:12px;margin:24px 0}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+#modal.ver{display:flex}
+#modal .cx{background:var(--tinta2);border:1px solid #4a5364;border-radius:14px;max-width:420px;width:100%;padding:20px;font-family:var(--sans)}
+#modal .bts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+@media(max-width:600px){header.capa h1{font-size:23px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="barraprog"><i id="prog"></i></div>
+<header class="capa"><div class="wrap">
+  <div class="selo">📖 Quarta Capa · Literatura · 7º ano</div>
+  <h1>🗺️ Resumo — Arrepios: contos de mistério e de terror</h1>
+  <p class="sub">Tudo o que cai na prova, em cartas, tabelas e post-its. Clique nas cartas para virar.</p>
+</div></header>
+<nav class="abas"><div class="wrap">
+  <a href="index.html">🏠 Início</a>
+  <a href="leitura.html">📖 Leitura Guiada</a>
+  <a href="quiz.html">🎯 Quiz</a>
+  <a href="resumo.html" class="atual">🗺️ Resumo</a>
+  <a href="simulado.html">📝 Simulado</a>
+</div></nav>
+
+<div class="wrap">
+
+<section class="card" data-id="c1">
+  <div class="et">Visão geral</div>
+  <h2>O que é o capítulo em 5 linhas</h2>
+  <p>Narrar é contar uma história com <b>sequência de eventos</b>, <b>espaço</b>, <b>tempo</b> e <b>personagens</b>. O <b>conto</b> é um texto literário curto e ficcional, e se divide em <b>subgêneros</b>: fadas, ficção científica, investigação, histórias de geração em geração, histórias reais vividas e os <b>contos de mistério e de terror</b>.</p>
+  <p>Esses dois últimos são histórias inventadas criadas para <b>provocar medo e pavor</b>. Podem ter ou não sobrenatural, mas sempre exploram o <b>desconhecido</b>, usando o <b>suspense</b> como principal elemento.</p>
+  <div class="estudei"><input type="checkbox" data-chk="c1"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c2">
+  <div class="et">Estrutura</div>
+  <h2>Os 4 degraus de todo conto</h2>
+  <div class="linhaTempo">
+    <div class="etapa"><b>1. Situação inicial</b><span>Apresenta o cenário, o tempo e as personagens. Ainda está tudo “normal”.</span></div>
+    <div class="etapa"><b>2. Conflito</b><span>O problema que quebra a calma. É aqui que a história “acontece”.</span></div>
+    <div class="etapa"><b>3. Clímax</b><span>O ponto de maior tensão. NÃO é o final.</span></div>
+    <div class="etapa"><b>4. Desfecho</b><span>Como tudo termina — resolvido ou em aberto.</span></div>
+  </div>
+  <div class="postit">📌 <b>Cai na prova:</b> em “Do além”, a situação inicial é a mudança para o sobrado antigo; o conflito é a peça do quebra-cabeça que se move sozinha; o clímax é o quebra-cabeça inteiro montado com outra imagem; o desfecho é o jardim de margaridas brancas e o fantasma que nunca mais apareceu.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c2"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c3">
+  <div class="et">Cartas para virar</div>
+  <h2>Quem está contando? (narrador e discurso)</h2>
+  <div class="grade">
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">🕵️ Narrador observador</div><div class="dica">clique para ver</div></div>
+      <div class="v">Conta de fora, em <b>3ª pessoa</b>. Vê e relata, mas <b>não participa</b> da história e não sabe o que as personagens pensam.</div></div></div>
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">🙋 Narrador personagem</div><div class="dica">clique para ver</div></div>
+      <div class="v">Conta em <b>1ª pessoa</b> e <b>participa</b> da história. Só sabe o que viveu ou ouviu. É o caso de <b>“Do além”</b>.</div></div></div>
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">👁️ Narrador onisciente</div><div class="dica">clique para ver</div></div>
+      <div class="v">Sabe de <b>tudo</b>, inclusive dos <b>pensamentos e sentimentos</b> das personagens. Narra em 3ª pessoa.</div></div></div>
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">💬 Discurso direto</div><div class="dica">clique para ver</div></div>
+      <div class="v">A fala aparece <b>do jeito que foi dita</b>, marcada por travessão ou aspas.<br><i>“— Estou com medo — disse Bruno.”</i></div></div></div>
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">🗣️ Discurso indireto</div><div class="dica">clique para ver</div></div>
+      <div class="v">O <b>narrador conta</b> a fala com as palavras dele.<br><i>“Bruno disse que estava com medo.”</i></div></div></div>
+    <div class="flip"><div class="in">
+      <div class="f"><div class="tt">🌀 Discurso indireto livre</div><div class="dica">clique para ver</div></div>
+      <div class="v">As duas vozes se <b>misturam sem marcação</b>: a voz da personagem invade a narração.<br><i>“Bruno seguiu em frente. E se tivesse alguém ali?”</i></div></div></div>
+  </div>
+  <div class="alerta">⚠️ <b>Pegadinha:</b> narrador em 1ª pessoa <b>não</b> é onisciente. Quem vive a história não lê a mente dos outros.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c3"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c4">
+  <div class="et">Comparação</div>
+  <h2>Mistério × Terror</h2>
+  <table class="comp">
+    <tr><th></th><th>Conto de MISTÉRIO</th><th>Conto de TERROR</th></tr>
+    <tr><th>O que desperta</th><td>Apreensão e <b>curiosidade</b> em relação ao que está sendo narrado.</td><td><b>Medo</b>, temor, apreensão — reações físicas ou psicológicas.</td></tr>
+    <tr><th>Como trata o desconhecido</th><td>De forma mais <b>branda</b>: desperta a curiosidade sem levar o leitor a sentir medo.</td><td>Explorado para provocar <b>tensão</b> e levar o leitor a temer o que está por vir.</td></tr>
+    <tr><th>Característica principal</th><td>O enigma a ser resolvido.</td><td>A <b>capacidade de provocar medo</b>.</td></tr>
+    <tr><th>O que os dois têm igual</th><td colspan="2">São <b>ficção</b>, exploram o <b>desconhecido</b> e usam o <b>suspense</b> como principal elemento. O sobrenatural <b>pode ou não</b> aparecer.</td></tr>
+  </table>
+  <div class="estudei"><input type="checkbox" data-chk="c4"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c5">
+  <div class="et">Suporte textual</div>
+  <h2>As partes de um livro</h2>
+  <div class="livro">
+    <div class="parte"><b>Capa</b><br>A frente do livro: título, autor, imagem.</div>
+    <div class="parte"><b>Orelha</b><br>As abas dobradas para dentro, na capa e na contracapa.</div>
+    <div class="parte"><b>Lombada</b><br>A lateral onde as folhas são presas — é o que se lê na estante.</div>
+    <div class="parte"><b>Quarta capa</b> (contracapa)<br>A parte de trás. Traz gênero, autor e a <b>sinopse</b>.</div>
+  </div>
+  <p style="margin-top:14px">O <b>suporte textual</b> é o lugar onde o texto circula. Os contos costumam vir reunidos em <b>livro</b>, impresso em papel ou digital, lido em <i>tablets</i> e <b>e-book readers</b> (dispositivo eletrônico de armazenamento e leitura de livros).</p>
+  <div class="postit">📌 <b>Sinopse:</b> texto curto que apresenta a obra e desperta o interesse de quem vai ler — <b>sem contar o final</b>. Exemplo do livro: a sinopse de <i>No escuro</i>, de Ernani Ssó, anuncia sete histórias tenebrosas de bruxa e aventuras horripilantes, mas não revela o que acontece em nenhuma delas.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c5"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c6">
+  <div class="et">Atmosfera</div>
+  <h2>Como o medo é construído</h2>
+  <ul class="simples">
+    <li><b>Narrativas empolgantes</b>, que causam sensações surpreendentes; o suspense é criado e estimulado a cada instante.</li>
+    <li><b>Tempo narrativo curto</b>: uma noite ou poucos dias.</li>
+    <li><b>Espaços sombrios</b>, com pouca luz, isolados da população; casas antigas e cheias de histórias.</li>
+    <li><b>Ambiente detalhado</b>: objetos, pessoas, sentimentos, lugares, cheiros — tudo que ajude a narração.</li>
+    <li><b>Eventos incomuns</b>, desconhecidos, situações difíceis de explicar.</li>
+    <li><b>Finalidade</b>: causar tensão, medo e curiosidade, envolvendo o público na história com o narrador.</li>
+  </ul>
+  <table class="comp">
+    <tr><th>Narração</th><th>Descrição</th></tr>
+    <tr><td>Conta as <b>ações</b> que acontecem.<br><i>“Bruno seguiu em frente até achar uma porta.”</i></td>
+        <td>Mostra <b>como são</b> pessoas, lugares e objetos.<br><i>“A sala era redonda, de teto muito baixo, com as paredes enfeitadas de armas medievais.”</i></td></tr>
+  </table>
+  <div class="postit">📌 <b>Palavras que criam clima</b> (de “Mistérios de Natal”): <i>olhares furtivos</i>, <i>apreensivo</i>, <i>discretamente</i>, <i>o silêncio era sepulcral</i>. Sepulcral vem de sepultura — é o silêncio de cemitério.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c6"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c7">
+  <div class="et">Indo além</div>
+  <h2>Terror ambiental e o terror brasileiro</h2>
+  <p><b>Terror ambiental</b> é o subgênero que explora as <b>consequências devastadoras das ações humanas sobre o meio ambiente</b>. Usa o medo e a angústia para falar de <b>poluição</b>, <b>aquecimento global</b> e <b>extinção de espécies</b>. Os autores querem entreter e também <b>provocar reflexão</b> sobre a relação entre o ser humano e a natureza.</p>
+  <p>No Brasil, a mistura cultural criou um terror próprio, diferente dos modelos estadunidenses e europeus, a partir de três caldeirões:</p>
+  <div class="livro">
+    <div class="parte"><b>Lendas brasileiras</b><br>O Saci, a Mula sem Cabeça…</div>
+    <div class="parte"><b>Lendas urbanas</b><br>A loira do banheiro, o trem fantasma…</div>
+    <div class="parte"><b>Atualidades</b><br>Videogames, celulares, tecnologia em geral.</div>
+  </div>
+  <div class="estudei"><input type="checkbox" data-chk="c7"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c8">
+  <div class="et">Produção de texto</div>
+  <h2>Se a prova pedir para escrever um conto</h2>
+  <ul class="simples">
+    <li><b>Planejamento:</b> organizar as ideias seguindo a estrutura do conto de mistério, com coerência e progressão; escolher um <b>título</b> que represente o conteúdo; usar linguagem apropriada ao gênero e ao público-alvo; garantir coesão e clareza.</li>
+    <li><b>Revisão:</b> conferir se o texto está adequado ao gênero e às suas características, se a linguagem combina com o público, se o conteúdo está bem organizado, se o título é atrativo, se há progressão de ideias e se a escrita respeita as normas gramaticais e ortográficas.</li>
+    <li><b>Não esqueça</b> de inserir os elementos da narrativa: espaço, tempo, personagens e enredo.</li>
+  </ul>
+  <div class="postit">📌 <b>Truque do título:</b> um bom título de mistério levanta hipóteses sem entregar o final — como “Do além” e “Mistérios de Natal”.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c8"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c9">
+  <div class="et">Vocabulário</div>
+  <h2>Glossário do capítulo</h2>
+  <dl class="glos">
+    <dt>Ficcional</dt><dd>Inventado, que não aconteceu de verdade.</dd>
+    <dt>Suspense</dt><dd>A expectativa que prende o leitor, criada e estimulada a cada instante.</dd>
+    <dt>Apreensão</dt><dd>Preocupação, receio do que pode acontecer.</dd>
+    <dt>Sobrenatural</dt><dd>O que está além das leis da natureza: fantasmas, assombrações, dons inexplicáveis.</dd>
+    <dt>Sinopse</dt><dd>Resumo que apresenta a obra e desperta interesse, sem contar o desfecho.</dd>
+    <dt>E-book reader</dt><dd>Dispositivo eletrônico de armazenamento e leitura de livros.</dd>
+    <dt>Sepulcral</dt><dd>Relativo a sepultura; silêncio pesado, de cemitério.</dd>
+    <dt>Furtivo</dt><dd>Feito às escondidas, sem que os outros percebam.</dd>
+    <dt>Lenda urbana</dt><dd>História assustadora que circula de boca em boca na cidade, como se fosse verdade.</dd>
+    <dt>Protagonista / antagonista</dt><dd>Personagem principal / quem se opõe a ela. No conto, o protagonista nem sempre tem antagonista.</dd>
+  </dl>
+  <div class="estudei"><input type="checkbox" data-chk="c9"> já estudei esta parte</div>
+</section>
+
+<section class="card" data-id="c10">
+  <div class="et">Antes de fechar o livro</div>
+  <h2>⚠️ As 6 confusões mais cobradas</h2>
+  <div class="alerta"><b>1.</b> Mistério desperta <b>curiosidade</b>; terror provoca <b>medo</b>. Não troque.</div>
+  <div class="alerta"><b>2.</b> Sobrenatural <b>não é obrigatório</b> — desconhecido e suspense é que são.</div>
+  <div class="alerta"><b>3.</b> <b>Clímax</b> é o pico da tensão; <b>desfecho</b> é o fim.</div>
+  <div class="alerta"><b>4.</b> <b>Quarta capa</b> = contracapa (atrás). <b>Orelha</b> = aba dobrada. <b>Lombada</b> = lateral.</div>
+  <div class="alerta"><b>5.</b> A <b>sinopse</b> nunca conta o final.</div>
+  <div class="alerta"><b>6.</b> <b>Narração</b> = ação acontecendo; <b>descrição</b> = como as coisas são.</div>
+  <div class="estudei"><input type="checkbox" data-chk="c10"> já estudei esta parte</div>
+</section>
+
+<a class="proximo" href="simulado.html">Próximo material → 📝 Simulado</a>
+</div>
+
+<footer class="salv"><div class="wrap">
+  <div>💾 <b>Seu progresso é salvo sozinho neste aparelho.</b></div>
+  <div class="quando" id="quando">—</div>
+  <div class="linhabtn">
+    <button class="btn sec" id="btExp">📥 Exportar</button>
+    <button class="btn sec" id="btImp">📤 Importar</button>
+    <button class="btn sec" id="btZerar">🗑️ Zerar tudo</button>
+    <input type="file" id="arq" accept="application/json" style="display:none">
+  </div>
+</div></footer>
+
+<div id="modal"><div class="cx"><h3 id="mTit"></h3><p id="mTxt" style="color:#c6bba4;font-size:15px"></p>
+<div class="bts"><button class="btn sec" id="mNao">Cancelar</button><button class="btn sec" id="mSim" style="background:#e2652a;border-color:#e2652a;color:#fff">Confirmar</button></div></div></div>
+
+<script>
+var CHAVE='legado_port7_cap08_resumo';
+var mem={};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},
+set:function(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},
+del:function(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
+var E={chk:{},rolagem:0,atualizado:null};
+(function(){var b=store.get(CHAVE);if(b){try{var o=JSON.parse(b);if(o)E=o;if(!E.chk)E.chk={}}catch(e){}}})();
+function salvar(){E.atualizado=new Date().toISOString();store.set(CHAVE,JSON.stringify(E));quando()}
+function quando(){var el=document.getElementById('quando');
+ if(!E.atualizado){el.textContent='Ainda não há nada salvo.';return}
+ var d=new Date(E.atualizado);
+ el.textContent='Último salvamento: '+d.toLocaleDateString('pt-BR')+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · leu até '+E.rolagem+'% do resumo';}
+
+document.querySelectorAll('.flip').forEach(function(f){
+  f.addEventListener('click',function(){f.classList.toggle('virado')});
+});
+document.querySelectorAll('input[data-chk]').forEach(function(c){
+  var id=c.getAttribute('data-chk');
+  c.checked=!!E.chk[id];
+  c.addEventListener('change',function(){E.chk[id]=c.checked;salvar()});
+});
+function rolagem(){
+  var h=document.documentElement;
+  var total=h.scrollHeight-h.clientHeight;
+  var p= total>0 ? Math.round((h.scrollTop||document.body.scrollTop)/total*100) : 100;
+  if(p>100)p=100;if(p<0)p=0;
+  document.getElementById('prog').style.width=p+'%';
+  if(p>E.rolagem){E.rolagem=p;salvar()}
+}
+window.addEventListener('scroll',rolagem);rolagem();
+
+document.getElementById('btExp').addEventListener('click',function(){
+  var o={material:'resumo',capitulo:'Cap. 08 — Contos de mistério e de terror',atualizado:E.atualizado,rolagemMax:E.rolagem,partesEstudadas:E.chk};
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}));
+  a.download='resumo-contos-misterio-terror.json';a.click();
+});
+document.getElementById('btImp').addEventListener('click',function(){document.getElementById('arq').click()});
+document.getElementById('arq').addEventListener('change',function(ev){
+  var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){try{var o=JSON.parse(r.result);
+    E.chk=o.partesEstudadas||{};E.rolagem=o.rolagemMax||0;salvar();
+    document.querySelectorAll('input[data-chk]').forEach(function(c){c.checked=!!E.chk[c.getAttribute('data-chk')]});
+    modal('Pronto','Progresso importado.',null);
+  }catch(e){modal('Não deu','Não consegui ler esse arquivo.',null)}};r.readAsText(f);
+});
+document.getElementById('btZerar').addEventListener('click',function(){
+  modal('Apagar tudo?','Isso apaga as marcações deste Resumo neste aparelho.',function(){
+    E={chk:{},rolagem:0,atualizado:null};store.del(CHAVE);
+    document.querySelectorAll('input[data-chk]').forEach(function(c){c.checked=false});quando();
+  });
+});
+function modal(t,x,ok){
+  var m=document.getElementById('modal');document.getElementById('mTit').textContent=t;document.getElementById('mTxt').textContent=x;
+  m.classList.add('ver');var s=document.getElementById('mSim'),n=document.getElementById('mNao');
+  function f(){m.classList.remove('ver');s.onclick=null;n.onclick=null}
+  s.onclick=function(){f();if(ok)ok()};n.onclick=f;
+}
+quando();
+</script>
+</body>
+</html>

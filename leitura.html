@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leitura Guiada — Contos de mistério e de terror | 7º ano</title>
+<style>
+:root{
+  --tinta:#12141a; --tinta2:#1b1f27; --tinta3:#242a35;
+  --papel:#e9dec7; --papel2:#c6bba4; --papel3:#8d8676;
+  --brasa:#e2652a; --brasa2:#f59a5e;
+  --verde:#4caf7d; --vermelho:#e0524b; --amarelo:#f2d06b;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--tinta);color:var(--papel);font-family:var(--serif);line-height:1.65;font-size:17px}
+a{color:var(--brasa2)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header.capa{background:linear-gradient(160deg,#1b1f27 0%,#2a1d16 60%,#3a2114 100%);border-bottom:3px solid var(--brasa);padding:28px 0 22px}
+header.capa .selo{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brasa2)}
+header.capa h1{font-size:30px;margin:8px 0 6px;line-height:1.2}
+header.capa p.sub{margin:0;color:var(--papel2);font-size:15px}
+nav.abas{background:var(--tinta2);border-bottom:1px solid #333}
+nav.abas .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav.abas a{font-family:var(--sans);font-size:13px;text-decoration:none;color:var(--papel2);background:var(--tinta3);border:1px solid #39404d;border-radius:20px;padding:6px 13px;white-space:nowrap}
+nav.abas a.atual{background:var(--brasa);color:#fff;border-color:var(--brasa)}
+.barraprog{position:sticky;top:0;z-index:20;height:8px;background:#0d0f13}
+.barraprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brasa),var(--amarelo));transition:width .4s}
+.aviso-topo{background:#2a2113;border-left:4px solid var(--amarelo);margin:18px 0;padding:12px 14px;border-radius:0 8px 8px 0;font-family:var(--sans);font-size:14px;color:var(--papel2)}
+.bloco{background:var(--tinta2);border:1px solid #333b47;border-radius:12px;margin:20px 0;overflow:hidden}
+.bloco.travado{opacity:.45}
+.bloco .cab{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--tinta3);border-bottom:1px solid #39404d}
+.bloco .cab .ic{font-size:26px}
+.bloco .cab h2{margin:0;font-size:20px}
+.bloco .cab .et{font-family:var(--sans);font-size:12px;color:var(--papel3);letter-spacing:.06em;text-transform:uppercase}
+.bloco .cab .status{margin-left:auto;font-family:var(--sans);font-size:13px}
+.bloco .corpo{padding:16px 18px 20px}
+.bloco.travado .corpo{display:none}
+.cadeado{padding:14px 18px;font-family:var(--sans);font-size:14px;color:var(--papel3)}
+.bloco p.texto{margin:0 0 14px}
+.bloco p.texto b{color:var(--brasa2)}
+.destaque{background:#20262f;border-left:4px solid var(--brasa);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;font-size:16px}
+.perg{background:#171b22;border:1px solid #333b47;border-radius:10px;padding:14px;margin:14px 0}
+.perg.vermelha{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho) inset}
+.perg .enun{font-family:var(--sans);font-size:15px;margin:0 0 10px;color:var(--papel)}
+.perg .enun .n{display:inline-block;background:var(--brasa);color:#fff;border-radius:50%;width:24px;height:24px;line-height:24px;text-align:center;font-size:13px;margin-right:8px;font-weight:700}
+.perg textarea{width:100%;min-height:86px;background:#0f1218;color:var(--papel);border:1px solid #3a4250;border-radius:8px;padding:10px;font-family:var(--sans);font-size:15px;resize:vertical}
+.perg textarea:focus{outline:2px solid var(--brasa)}
+.alerta{margin-top:10px;padding:11px 13px;border-radius:8px;font-family:var(--sans);font-size:14px;display:none}
+.alerta.amarelo{display:block;background:#33290f;border:1px solid var(--amarelo);color:#f6e2a8}
+.alerta.vermelho{display:block;background:#33171a;border:1px solid var(--vermelho);color:#f4c3c0}
+.modelo{margin-top:12px;padding:12px 14px;background:#12251c;border:1px solid #2f6b4c;border-radius:8px;font-size:15px;display:none}
+.modelo.ver{display:block}
+.modelo .tit{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-bottom:6px}
+.chk{margin-top:12px;font-family:var(--sans);font-size:14px}
+.chk .linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 0;border-top:1px dashed #39404d}
+.chk .linha:first-of-type{border-top:0}
+.chk .linha span{flex:1;min-width:180px}
+.chk button{border:1px solid #4a5364;background:#232a35;color:var(--papel2);border-radius:16px;padding:4px 14px;cursor:pointer;font-size:13px;font-family:var(--sans)}
+.chk button.sim.on{background:var(--verde);border-color:var(--verde);color:#08160f}
+.chk button.nao.on{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+.btn{font-family:var(--sans);font-weight:600;border:0;border-radius:24px;padding:11px 24px;font-size:15px;cursor:pointer}
+.btn.conferir{background:var(--brasa);color:#fff}
+.btn.conferir:disabled{background:#3a4250;color:#7c8598;cursor:not-allowed}
+.btn.sec{background:var(--tinta3);color:var(--papel);border:1px solid #4a5364}
+.acoes{margin-top:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dica-btn{font-family:var(--sans);font-size:13px;color:var(--papel3)}
+#fim{display:none}
+#fim.ver{display:block}
+.card{background:var(--tinta2);border:1px solid #333b47;border-radius:12px;padding:18px;margin:20px 0}
+.card h2{margin-top:0;font-size:22px}
+.pegadinhas ol{padding-left:20px}
+.pegadinhas li{margin-bottom:10px}
+table.cob{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:14px}
+table.cob th,table.cob td{border:1px solid #39404d;padding:8px 10px;text-align:left}
+table.cob th{background:var(--tinta3);color:var(--brasa2)}
+ul.revisar{list-style:none;padding:0}
+ul.revisar li{background:#2a1417;border:1px solid var(--vermelho);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-family:var(--sans);font-size:14px}
+footer.salv{background:var(--tinta2);border-top:1px solid #333;margin-top:30px;padding:18px 0 40px;font-family:var(--sans);font-size:14px}
+footer.salv .linhabtn{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+footer.salv .quando{color:var(--papel3);font-size:13px}
+.proximo{display:block;text-align:center;background:var(--brasa);color:#fff;text-decoration:none;font-family:var(--sans);font-weight:700;padding:14px;border-radius:12px;margin:24px 0}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+#modal.ver{display:flex}
+#modal .cx{background:var(--tinta2);border:1px solid #4a5364;border-radius:14px;max-width:420px;width:100%;padding:20px;font-family:var(--sans)}
+#modal h3{margin:0 0 10px;font-size:18px}
+#modal p{font-size:15px;color:var(--papel2)}
+#modal .bts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+@media(max-width:600px){header.capa h1{font-size:24px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="barraprog"><i id="prog"></i></div>
+
+<header class="capa">
+  <div class="wrap">
+    <div class="selo">📖 Quarta Capa · Literatura · 7º ano</div>
+    <h1>Leitura Guiada — Arrepios: contos de mistério e de terror</h1>
+    <p class="sub">Capítulo 08 · Este livro tem 8 partes. Leia cada uma e escreva as respostas com as <b>suas palavras</b>.</p>
+  </div>
+</header>
+
+<nav class="abas"><div class="wrap">
+  <a href="index.html">🏠 Início</a>
+  <a href="leitura.html" class="atual">📖 Leitura Guiada</a>
+  <a href="quiz.html">🎯 Quiz</a>
+  <a href="resumo.html">🗺️ Resumo</a>
+  <a href="simulado.html">📝 Simulado</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="aviso-topo">✍️ <b>Como funciona:</b> cada parte do livro tem um texto e 3 perguntas para você <b>escrever</b>. O botão “Conferir” só liga quando as 3 estiverem respondidas. A próxima parte só abre depois de conferir a anterior. Escreva com as suas palavras — copiar o texto não vale.</div>
+
+  <main id="blocos"></main>
+
+  <section id="fim">
+    <div class="card pegadinhas">
+      <h2>⚠️ 10 pegadinhas que a prova adora</h2>
+      <ol>
+        <li><b>Mistério não é terror.</b> O mistério desperta apreensão e <i>curiosidade</i>, tratando o desconhecido de forma mais branda. O terror quer mesmo causar <i>medo e pavor</i>.</li>
+        <li><b>Nem todo conto de mistério e terror tem sobrenatural.</b> O livro diz que eles “podem abordar ou não o sobrenatural” — o que nunca falta é o <i>desconhecido</i> e o <i>suspense</i>.</li>
+        <li><b>Suspense × medo.</b> O suspense é o principal <i>elemento</i> dos dois subgêneros; provocar medo é a principal <i>característica</i> do terror.</li>
+        <li><b>Clímax não é o final.</b> A estrutura é situação inicial → conflito → clímax → desfecho. O clímax é o ponto de maior tensão; o desfecho é o que vem depois.</li>
+        <li><b>Narrador personagem não é narrador onisciente.</b> O personagem conta em 1ª pessoa e só sabe o que viveu; o onisciente sabe de tudo, até dos pensamentos alheios.</li>
+        <li><b>Quarta capa = contracapa</b> (a parte de trás). A <i>orelha</i> é a aba dobrada e a <i>lombada</i> é a lateral onde o livro é costurado.</li>
+        <li><b>A sinopse não conta o final.</b> Ela apresenta a obra e desperta o interesse de quem vai ler.</li>
+        <li><b>Tempo e espaço são reduzidos.</b> Uma noite ou poucos dias, poucos lugares. História que dura anos e roda o mundo dificilmente é um conto.</li>
+        <li><b>Narração × descrição.</b> Narrar é contar as ações que acontecem; descrever é mostrar como são pessoas, lugares, objetos, cheiros.</li>
+        <li><b>Protagonista nem sempre tem antagonista</b> — e o número de personagens no conto é reduzido.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>🗂️ Cobertura: cada assunto está em que parte?</h2>
+      <table class="cob">
+        <tr><th>Assunto do capítulo</th><th>Parte do livro</th></tr>
+        <tr><td>Narração, conto e subgêneros</td><td>1 — A Capa</td></tr>
+        <tr><td>Características do gênero conto (diagrama)</td><td>2 — A Orelha</td></tr>
+        <tr><td>Conto de mistério × conto de terror</td><td>3 — A Lombada</td></tr>
+        <tr><td>O conto “Do além” e a estrutura da narrativa</td><td>4 — O Miolo</td></tr>
+        <tr><td>Narrador, foco narrativo e tipos de discurso</td><td>5 — A Folha de Rosto</td></tr>
+        <tr><td>Suporte textual, partes do livro e sinopse</td><td>6 — A Estante</td></tr>
+        <tr><td>Atmosfera, tempo, espaço, narração e descrição</td><td>7 — A Atmosfera</td></tr>
+        <tr><td>Terror ambiental, cultura brasileira e produção do conto</td><td>8 — A Contracapa</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>🔁 Para revisar antes da prova</h2>
+      <p style="font-family:var(--sans);font-size:14px;color:var(--papel2)">Aqui aparecem as perguntas que ficaram marcadas em vermelho (resposta copiada do texto) e os pontos do checklist que você marcou “Não”.</p>
+      <ul class="revisar" id="listaRevisar"></ul>
+    </div>
+
+    <a class="proximo" href="quiz.html">Próximo material → 🎯 Quiz</a>
+  </section>
+
+</div>
+
+<footer class="salv"><div class="wrap">
+  <div>💾 <b>Seu progresso é salvo sozinho neste aparelho.</b></div>
+  <div class="quando" id="quando">—</div>
+  <div class="linhabtn">
+    <button class="btn sec" id="btExp">📥 Exportar</button>
+    <button class="btn sec" id="btImp">📤 Importar</button>
+    <button class="btn sec" id="btZerar">🗑️ Zerar tudo</button>
+    <input type="file" id="arq" accept="application/json" style="display:none">
+  </div>
+</div></footer>
+
+<div id="modal"><div class="cx">
+  <h3 id="mTit">Aviso</h3>
+  <p id="mTxt"></p>
+  <div class="bts">
+    <button class="btn sec" id="mNao">Cancelar</button>
+    <button class="btn conferir" id="mSim">Confirmar</button>
+  </div>
+</div></div>
+
+<script>
+/* ============ DADOS DO CAPÍTULO ============ */
+var DADOS=[
+{ic:"📕",et:"Parte 1 do livro",titulo:"A Capa — Narrar, conto e subgêneros",
+ texto:[
+ "Narrar é contar uma história. Toda narração tem uma <b>sequência de eventos</b> que acontece num <b>espaço</b> e num <b>tempo</b> determinados, com a presença de uma ou mais <b>personagens</b>. Essa é a espinha de qualquer história: alguém, em algum lugar, em algum momento, fazendo alguma coisa.",
+ "O <b>conto</b> é um tipo de narrativa: um texto literário curto, de ficção, ou seja, inventado. Como é curto, ele não tem espaço para muita coisa: vai direto ao ponto, com poucos personagens e um único problema principal.",
+ "Mesmo tendo todos a mesma estrutura clássica, os contos são muito versáteis e se dividem em <b>subgêneros</b>. Subgênero é uma “família” dentro do gênero: contos de fadas ou maravilhosos (com personagens mágicos, princesas), contos de ficção científica (temática futurista e tecnologia avançada), contos de investigação (decifrar crimes), contos transmitidos de geração em geração, contos de histórias reais vividas e, claro, os <b>contos de mistério e de terror</b>.",
+ "Os subgêneros compartilham elementos comuns, mas cada um carrega peculiaridades que o distinguem dos outros. É por isso que a gente consegue perceber, já nas primeiras linhas, se está lendo uma história de princesa ou uma história de casa assombrada."],
+ destaque:"Gênero = conto. Subgênero = a família dentro dele (fadas, ficção científica, investigação, mistério e terror…).",
+ perg:[
+  {q:"Com as suas palavras, explique o que um texto precisa ter para ser uma narração.",
+   modelo:"Precisa ter uma sequência de acontecimentos, com personagens, acontecendo num lugar (espaço) e num momento (tempo). Sem isso, é só uma descrição ou uma informação solta.",
+   chk:["Minha resposta falou em sequência de acontecimentos?","Minha resposta citou personagens?","Minha resposta citou espaço e tempo?"]},
+  {q:"Invente o começo de uma história em duas frases. Depois aponte nela: quem é a personagem, onde acontece e quando acontece.",
+   modelo:"Exemplo: “Era quase meia-noite quando Laura desceu ao porão do prédio. A lâmpada piscou duas vezes e apagou.” Personagem: Laura. Espaço: o porão do prédio. Tempo: quase meia-noite.",
+   chk:["Escrevi uma história minha (não copiei o livro)?","Apontei quem é a personagem?","Apontei o espaço e o tempo?"]},
+  {q:"Um primo do 5º ano pergunta: “o que é subgênero?”. Explique para ele usando um exemplo que NÃO esteja no texto acima.",
+   modelo:"Subgênero é um tipo dentro de um tipo maior. Exemplo possível: dentro do gênero filme existe o subgênero comédia romântica; dentro do gênero música existe o subgênero samba-enredo. A ideia é a mesma dos contos: todos são contos, mas cada família tem o seu jeito.",
+   chk:["Expliquei que subgênero é um tipo dentro de um gênero maior?","Usei um exemplo que não estava no texto?","Escrevi de um jeito simples, que uma criança menor entenderia?"]}]},
+
+{ic:"🔖",et:"Parte 2 do livro",titulo:"A Orelha — As características do gênero conto",
+ texto:[
+ "O livro reúne num diagrama as características que todo conto costuma ter. A primeira é a <b>estrutura</b>: situação inicial, conflito, clímax e desfecho. A situação inicial apresenta o cenário e as personagens; o conflito é o problema que quebra a calma; o clímax é o ponto de maior tensão; o desfecho é como tudo se resolve (ou não).",
+ "A segunda é o <b>tempo e o espaço narrativos reduzidos</b>. O conto não acompanha a vida inteira de alguém: ele recorta um pedaço curto, muitas vezes uma noite só, num lugar só. Junto vem o <b>número reduzido de personagens</b> — e atenção: o protagonista nem sempre tem um antagonista, ou seja, nem toda história precisa de um vilão.",
+ "A terceira é que o conto é <b>ficção</b>: história inventada, texto literário curto. Mesmo quando parte de algo real, o que vale é a invenção.",
+ "A quarta é o jeito de contar. O <b>discurso</b> pode ser direto, indireto ou indireto livre, e o <b>narrador</b> pode ser observador, personagem ou onisciente, com foco narrativo em 1ª ou em 3ª pessoa. Esses dois últimos pontos são tão cobrados que ganham uma parte só para eles mais adiante."],
+ destaque:"Situação inicial → conflito → clímax → desfecho. Decore nessa ordem: a prova costuma embaralhar.",
+ perg:[
+  {q:"Pegue uma história que você conhece bem (filme, livro, série ou jogo) e escreva qual é a situação inicial e qual é o conflito dela.",
+   modelo:"Espera-se que você nomeie a história e separe as duas coisas. Exemplo de formato: “Na história X, a situação inicial é a família vivendo tranquila na fazenda; o conflito começa quando o irmão mais novo desaparece durante a tempestade.”",
+   chk:["Escolhi uma história e disse qual é?","Separei claramente a situação inicial?","Mostrei qual é o problema (conflito)?"]},
+  {q:"Escreva uma fala de personagem em discurso direto (com travessão) e depois reescreva a mesma fala em discurso indireto.",
+   modelo:"Direto: “— Eu não vou entrar nesse porão — disse Ana.” Indireto: “Ana disse que não entraria naquele porão.” No direto a fala aparece exatamente como foi dita; no indireto quem conta é o narrador.",
+   chk:["Escrevi uma fala com travessão (discurso direto)?","Reescrevi a mesma fala contada pelo narrador (indireto)?","A frase inventada é minha, não copiada do livro?"]},
+  {q:"Por que o conto costuma ter tempo e espaço reduzidos? Explique com as suas palavras.",
+   modelo:"Porque o conto é um texto curto: não há espaço para acompanhar anos de vida nem muitos lugares. Concentrar tudo num tempo curto e num espaço pequeno deixa a história intensa e vai direto ao conflito.",
+   chk:["Liguei o tempo/espaço curtos ao fato de o conto ser um texto curto?","Falei que isso deixa a história mais concentrada ou intensa?"]}]},
+
+{ic:"🗝️",et:"Parte 3 do livro",titulo:"A Lombada — Mistério × Terror: o que muda",
+ texto:[
+ "O livro dá a definição completa: contos de mistério e de terror são <b>histórias ficcionais</b>, criadas com a intenção de <b>provocar medo e pavor</b>. Podem abordar ou não o sobrenatural, mas sempre exploram o <b>desconhecido</b>, usando o <b>suspense</b> como principal elemento.",
+ "Nos contos de <b>mistério</b>, o suspense serve para despertar no leitor <b>apreensão e curiosidade</b> em relação ao que está sendo narrado. O desconhecido aparece de forma mais <b>branda</b>: a história desperta a curiosidade sem levar o leitor a sentir medo de verdade. A vontade de descobrir é maior que o susto.",
+ "Nos contos de <b>terror</b>, o objetivo do autor é despertar <b>reações físicas ou psicológicas</b> — medo, temor, apreensão — envolvendo o leitor na trama. Aqui o desconhecido é explorado para provocar <b>tensão</b> e levar o leitor a <b>temer o que está por vir</b>. A capacidade de provocar medo é a principal característica dos contos de terror.",
+ "Ou seja: os dois exploram o desconhecido e usam o suspense; o que muda é a <b>dose</b> e o <b>objetivo</b>. Curiosidade para o mistério; medo para o terror."],
+ destaque:"Mesmo ingrediente (o desconhecido + suspense), receitas diferentes: mistério = curiosidade; terror = medo.",
+ perg:[
+  {q:"Escreva duas versões curtas da mesma cena — uma porta rangendo à noite: uma de MISTÉRIO e outra de TERROR. Depois diga, em uma frase, o que você mudou.",
+   modelo:"Na versão de mistério a cena desperta vontade de descobrir (“a porta rangeu, e eu quis saber quem tinha aberto”). Na de terror ela provoca medo e tensão (“a porta rangeu sozinha e um sopro gelado bateu na minha nuca”). O que muda são as palavras, os detalhes e o efeito desejado no leitor.",
+   chk:["Escrevi as DUAS versões?","A versão de mistério desperta curiosidade em vez de medo?","Expliquei o que mudei de uma para a outra?"]},
+  {q:"Pense num filme, livro ou série que você já viu. Classifique como mistério ou terror e justifique citando uma cena.",
+   modelo:"Espera-se a classificação + a justificativa ligada à definição: se a cena fazia você querer descobrir algo, puxa para mistério; se fazia você sentir medo, tensão ou arrepio, puxa para terror.",
+   chk:["Disse qual é a obra e se é mistério ou terror?","Citei uma cena específica?","Liguei a cena à curiosidade (mistério) ou ao medo (terror)?"]},
+  {q:"O que os contos de mistério e os de terror têm em comum? Responda com as suas palavras.",
+   modelo:"Os dois são ficção, exploram o desconhecido e usam o suspense como principal elemento para prender o leitor. Os dois também podem ter ou não elementos sobrenaturais.",
+   chk:["Citei o desconhecido?","Citei o suspense?","Falei que os dois são histórias inventadas (ficção)?"]}]},
+
+{ic:"📖",et:"Parte 4 do livro",titulo:"O Miolo — O conto “Do além”, de Flávia Muniz",
+ texto:[
+ "<b>Situação inicial:</b> a família da narradora se muda para um sobrado antigo, de janelas e portas altas, com varanda e um jardim grande que não estava em bom estado de conservação. A casa era ampla e ensolarada, com uma escada em caracol que levava ao sótão — e é justamente o sótão que a narradora escolhe como quarto.",
+ "<b>Conflito:</b> numa noite fria e chuvosa, com os pais fora e a irmã Beth por perto, ela monta no sótão um quebra-cabeça novo, de 500 peças. Enquanto o vento assobia nas folhagens do jardim, uma das peças <b>desliza sozinha</b> para o lugar certo. Ela recua em choque, assustada, e se lembra na hora dos comentários dos garotos vizinhos: a casa é assombrada.",
+ "<b>Desenvolvimento e clímax:</b> quando voltam ao quarto, o quebra-cabeça de 500 peças está <b>completamente montado</b> — e com uma imagem que ela nunca comprou: a vista aérea de um parque de diversões. No dia seguinte ela conta tudo à professora, e juntas pesquisam livros sobre mistérios e lendas urbanas. Depois de algum tempo, encontram uma foto parecida com a do quebra-cabeça: era a morada da família Florença, conhecida pelo jardim belíssimo de flores brancas, cuja dona tinha um dom sobrenatural para cuidar de flores e cujo fantasma já foi visto por inúmeras pessoas.",
+ "<b>Desfecho:</b> a imagem do quebra-cabeça muda de parque de diversões para um jardim florido. A narradora conclui que a fantasia influencia nossas atitudes e modifica a forma como vemos as coisas, e aos poucos convence a mãe a se interessar por jardinagem — ela até fez um curso de paisagismo a distância. Hoje a casa tem o jardim mais bonito da rua, com margaridas brancas impecáveis, e o fantasma nunca mais apareceu."],
+ destaque:"Repare: o conto assusta, mas termina em paz. Por isso ele puxa mais para o MISTÉRIO do que para o terror.",
+ perg:[
+  {q:"Resuma o conflito de “Do além” em no máximo duas frases, com as suas palavras (sem copiar trechos do texto acima).",
+   modelo:"Enquanto monta um quebra-cabeça sozinha no sótão, numa noite de chuva, a narradora vê uma peça se encaixar sem que ninguém a toque — e passa a acreditar que a casa é mesmo assombrada.",
+   chk:["Falei do quebra-cabeça e da peça que se move sozinha?","Deixei claro por que isso vira um problema para a narradora?","Escrevi com as minhas palavras, em no máximo duas frases?"]},
+  {q:"Se o conto terminasse logo depois de o quebra-cabeça aparecer montado, ele ficaria mais de mistério ou mais de terror? Justifique.",
+   modelo:"Ficaria mais próximo do terror, porque o leitor sairia com a tensão e o susto sem explicação, temendo o que estava por vir. Como o conto continua e explica o fantasma das flores, o clima final é de curiosidade resolvida — mistério.",
+   chk:["Escolhi um dos dois e disse qual?","Liguei a escolha ao efeito no leitor (medo ou curiosidade)?","Usei o final do conto para justificar?"]},
+  {q:"Invente um novo desfecho para “Do além” em duas ou três frases, mantendo o clima de mistério.",
+   modelo:"Qualquer final autoral serve, desde que conserve o clima: uma explicação parcial, um detalhe que continua inexplicado, nada de monstro atacando. Exemplo de formato: “Anos depois, ao abrir a caixa do quebra-cabeça, ela encontra uma peça a mais — de uma casa que ainda não existia.”",
+   chk:["Escrevi um final diferente do original?","Meu final mantém o clima de mistério (curiosidade, algo inexplicado)?","Escrevi em duas ou três frases?"]}]},
+
+{ic:"🧭",et:"Parte 5 do livro",titulo:"A Folha de Rosto — Narrador, foco narrativo e discurso",
+ texto:[
+ "O <b>narrador observador</b> conta a história de fora, em 3ª pessoa: ele vê e relata, mas não participa. O <b>narrador personagem</b> conta em 1ª pessoa e participa da história — só sabe aquilo que viveu ou ouviu. O <b>narrador onisciente</b> sabe de tudo, inclusive dos pensamentos e sentimentos das personagens.",
+ "Em “Do além”, o narrador é <b>personagem</b>: quem conta é a menina que mora na casa, e o texto está em 1ª pessoa. Já em “Mistérios de Natal”, o narrador observa a cafeteria de fora, em 3ª pessoa. Perceber o foco narrativo (1ª ou 3ª pessoa) é o atalho mais rápido para identificar o tipo de narrador.",
+ "Quanto ao <b>discurso</b>: no <b>direto</b>, a fala da personagem aparece do jeito que foi dita, marcada por travessão ou aspas (“— O que será que tem aí?”). No <b>indireto</b>, o narrador conta a fala com as palavras dele (“Bruno pensou no que haveria ali”). No <b>indireto livre</b>, os dois se misturam sem marcação, e a voz da personagem invade a narração.",
+ "Cuidado com a confusão mais comum: narrador em 1ª pessoa <b>não</b> é narrador onisciente. Quem participa da história não consegue ler a mente dos outros — e, quando parece que consegue, é porque está supondo."],
+ destaque:"Atalho de prova: “eu” → narrador personagem; “ele/ela” → observador ou onisciente (onisciente = sabe os pensamentos).",
+ perg:[
+  {q:"O narrador de “Do além” é observador, personagem ou onisciente? Escreva sua resposta e explique como o jeito de contar mostra isso.",
+   modelo:"É narrador personagem. O texto é contado em 1ª pessoa por alguém que mora na casa e vive os acontecimentos: ela escolhe o quarto, monta o quebra-cabeça, se assusta e conta o caso à professora.",
+   chk:["Respondi “narrador personagem”?","Expliquei que a história é contada em 1ª pessoa?","Mostrei que quem conta participa dos acontecimentos?"]},
+  {q:"Transforme em discurso indireto: “— Estou com medo — disse Bruno.” Depois explique o que mudou na frase.",
+   modelo:"“Bruno disse que estava com medo.” Mudou o travessão (que some), o verbo passa para o passado e a fala deixa de ser reproduzida: agora quem conta é o narrador.",
+   chk:["Escrevi a frase transformada?","Tirei o travessão e usei “disse que”?","Expliquei o que mudou?"]},
+  {q:"Descreva uma mesma cena de duas maneiras: uma com narrador observador e outra com narrador onisciente. Diga o que muda entre as duas.",
+   modelo:"Observador: “O menino parou diante da porta e não se mexeu.” Onisciente: “O menino parou diante da porta, lembrando do que a avó dissera sobre aquele quarto, e sentiu o estômago gelar.” O onisciente entra nos pensamentos e sentimentos; o observador só relata o que dá para ver.",
+   chk:["Escrevi as duas versões da mesma cena?","Na versão onisciente apareceram pensamentos ou sentimentos?","Expliquei a diferença entre as duas?"]}]},
+
+{ic:"📚",et:"Parte 6 do livro",titulo:"A Estante — O suporte textual e as partes do livro",
+ texto:[
+ "<b>Suporte textual</b> é o lugar onde o texto circula. Em sua maioria, os contos de um determinado autor estão reunidos no suporte <b>livro</b>, na versão impressa (em papel) ou digital, lida em <i>tablets</i> ou em <b>e-book readers</b> — dispositivos eletrônicos de armazenamento e leitura de livros.",
+ "Com os contos de mistério e terror não é diferente. Nos livros são encontradas as informações mais importantes sobre a obra, como o <b>gênero</b>, o <b>autor</b> e a <b>sinopse</b>, que pode ser encontrada na <b>quarta capa</b> (ou contracapa).",
+ "As partes do livro aparecem na ilustração do capítulo: a <b>capa</b> (frente), as <b>orelhas</b> (as abas dobradas para dentro), a <b>lombada</b> (a lateral onde as folhas são costuradas ou coladas, com o título que a gente lê na estante) e a <b>quarta capa</b>, atrás.",
+ "A <b>sinopse</b> é o texto curto que apresenta a obra e desperta o interesse de quem ainda não leu. Repare na sinopse de <i>No escuro</i>, de Ernani Ssó, que o livro usa como exemplo: ela faz perguntas (“Você tem medo do escuro? E medo de bruxa?”), anuncia sete histórias tenebrosas de bruxa e promete aventuras horripilantes — mas <b>não conta o final</b> de nenhuma delas. Por isso a obra é classificada como livro de contos de mistério e de terror: reúne histórias curtas e ficcionais que exploram o medo e o desconhecido."],
+ destaque:"Quarta capa = contracapa = onde fica a sinopse. Orelha = aba dobrada. Lombada = a “costela” do livro.",
+ perg:[
+  {q:"Escreva uma sinopse de até 3 linhas para um livro de contos de terror inventado por você (invente também o título).",
+   modelo:"A sinopse deve apresentar o clima e o tema, despertar curiosidade e não entregar o final. Exemplo de formato: “<i>A casa que conta</i> — Cinco histórias sobre uma casa que repete em voz alta tudo o que seus moradores sussurram. Você teria coragem de falar dormindo ali dentro?”",
+   chk:["Inventei um título?","Minha sinopse desperta curiosidade?","Deixei o final em segredo?"]},
+  {q:"Um colega diz: “sinopse é o resumo que conta o final do livro”. Explique por que ele está errado, usando um exemplo.",
+   modelo:"A sinopse apresenta a obra para despertar interesse, não entrega o desfecho. Na sinopse de <i>No escuro</i>, por exemplo, sabemos que há sete histórias de bruxa e que a imaginação pode ajudar a vencer o medo, mas não sabemos o que acontece em nenhuma delas.",
+   chk:["Disse que a sinopse não conta o final?","Expliquei que a função dela é despertar interesse?","Dei um exemplo para provar?"]},
+  {q:"Em que parte do livro ficam o gênero, o autor e a sinopse? E o que é a lombada?",
+   modelo:"Na quarta capa (contracapa), a parte de trás do livro. A lombada é a lateral do livro, onde as folhas são presas e onde aparece o título quando ele está na estante.",
+   chk:["Respondi “quarta capa” ou “contracapa”?","Expliquei corretamente o que é a lombada?"]}]},
+
+{ic:"🌫️",et:"Parte 7 do livro",titulo:"A Atmosfera — O que captura a sua atenção",
+ texto:[
+ "Os contos de mistério e terror apresentam elementos que os tornam únicos. São <b>narrativas empolgantes que causam sensações surpreendentes</b>, e a <b>atmosfera de suspense</b> é criada e estimulada a cada instante para manter a atenção do leitor.",
+ "O <b>tempo narrativo</b> geralmente é curto: uma noite ou poucos dias. Os <b>espaços</b> são sombrios, com pouca luz, isolados da população; casas antigas e cheias de histórias. O <b>ambiente é detalhado</b>: descrevem-se objetos, pessoas, sentimentos, lugares, cheiros, tudo que possa ajudar a narração. Contam com <b>eventos incomuns</b>, desconhecidos, situações difíceis de explicar. E a finalidade principal é <b>causar tensão, medo e curiosidade</b>, envolvendo o público na história com o narrador, tentando resolver o mistério apresentado.",
+ "Para construir esse clima, o autor mistura <b>narração</b> (as ações que acontecem: “Bruno seguiu em frente até achar uma porta”) e <b>descrição</b> (como são as coisas: “a sala era redonda, de teto muito baixo, com as paredes enfeitadas de armas medievais”). A descrição é o que faz o leitor enxergar e sentir a cena.",
+ "As <b>escolhas de palavras</b> também pesam. Em “Mistérios de Natal”, expressões como <i>olhares furtivos</i>, <i>apreensivo</i>, <i>discretamente</i> e <i>o silêncio na cafeteria era sepulcral</i> constroem a desconfiança e a tensão — e é justamente isso que torna o final (um coral de Natal, e não um assalto) uma surpresa."],
+ destaque:"Se a prova pedir “como a atmosfera é construída”, cite: tempo curto, espaço sombrio/isolado, descrição detalhada e escolha de palavras.",
+ perg:[
+  {q:"Descreva um lugar comum da sua casa (a cozinha, o corredor, a área de serviço) de um jeito que dê medo, usando pelo menos três detalhes de ambiente (luz, som, cheiro, objetos).",
+   modelo:"Espera-se uma descrição autoral com detalhes sensoriais. Exemplo de formato: “A cozinha às três da manhã tem a luz azulada da geladeira, o gotejar da torneira que ninguém consegue fechar e um cheiro de fumaça que não deveria estar ali.”",
+   chk:["Escolhi um lugar da minha casa?","Usei pelo menos três detalhes (luz, som, cheiro, objetos)?","A descrição cria clima de medo ou tensão?"]},
+  {q:"Escreva uma frase de NARRAÇÃO e uma de DESCRIÇÃO sobre a mesma cena, e marque qual é qual.",
+   modelo:"Narração: “Ela desceu a escada e abriu a porta do porão.” Descrição: “O porão era estreito, cheirava a terra molhada e tinha uma única lâmpada piscando.” A narração conta ação; a descrição mostra como as coisas são.",
+   chk:["Escrevi as duas frases sobre a mesma cena?","Marquei qual é narração e qual é descrição?","A frase de narração tem uma ação acontecendo?"]},
+  {q:"Reescreva a frase “A sala estava quieta” de um jeito mais assustador e explique o efeito da sua escolha de palavras.",
+   modelo:"Exemplo: “O silêncio da sala era sepulcral.” A palavra sepulcral lembra sepultura e morte, então ela carrega a frase de medo: a mesma informação (estava quieto) passa a assustar.",
+   chk:["Reescrevi a frase com palavras mais fortes?","Expliquei por que essas palavras assustam mais?","A explicação fala do efeito no leitor?"]}]},
+
+{ic:"🌍",et:"Parte 8 do livro",titulo:"A Contracapa — Terror ambiental, cultura brasileira e o seu conto",
+ texto:[
+ "O termo <b>“Terror Ambiental”</b> refere-se a um subgênero da literatura de terror que explora as <b>consequências devastadoras das ações humanas sobre o meio ambiente</b>. Essa vertente usa o medo e a angústia para abordar questões ecológicas, como a poluição, o aquecimento global e a extinção de espécies. Os autores desse nicho buscam não apenas entreter, mas provocar reflexões profundas sobre a relação entre o ser humano e a natureza, evidenciando o impacto das nossas escolhas no planeta.",
+ "No Brasil, a criatividade e a mistura cultural estimularam vários autores a inventar contos de terror e mistério diferentes dos modelos estadunidenses e europeus. As misturas que eles criaram vêm de três caldeirões: as <b>lendas brasileiras</b> (o Saci, a Mula sem Cabeça), as <b>lendas urbanas</b> (a loira do banheiro, o trem fantasma) e as <b>atualidades</b> (videogames, celulares, tecnologia em geral).",
+ "Na hora de <b>escrever o seu conto</b>, o livro pede um planejamento: organizar as ideias seguindo a estrutura do conto de mistério, garantindo coerência e progressão; escolher um título que represente o conteúdo; usar linguagem apropriada ao gênero e ao público-alvo; garantir coesão e clareza.",
+ "Na <b>revisão</b>, troca-se o texto com um colega e analisa-se: se o texto está adequado ao gênero e às suas características; se a linguagem combina com o público; se o conteúdo está bem organizado; se o título é atrativo e condiz com o texto; se há progressão de ideias; e se a escrita respeita as normas gramaticais e ortográficas."],
+ destaque:"O título é parte do suspense: ele levanta hipóteses no leitor sem entregar o final.",
+ perg:[
+  {q:"Crie a ideia de um conto de terror ambiental em três frases: qual problema do meio ambiente vira o “monstro” da sua história?",
+   modelo:"Espera-se um problema ambiental real (poluição, aquecimento, extinção, lixo, seca) transformado em ameaça na história. Exemplo de formato: “Numa cidade onde o rio secou, as pessoas começam a ouvir a água correndo à noite embaixo do asfalto. Quem vai olhar não volta.”",
+   chk:["Escolhi um problema ambiental de verdade?","Transformei esse problema na ameaça da história?","Escrevi em até três frases, com as minhas palavras?"]},
+  {q:"Escolha uma lenda brasileira ou urbana e escreva o começo de um conto de mistério com ela, situado na sua cidade.",
+   modelo:"Qualquer lenda serve (Saci, Mula sem Cabeça, loira do banheiro, trem fantasma). O começo deve situar espaço e tempo e já plantar o estranho. Exemplo de formato: “Todo mundo na escola sabia que o banheiro do segundo andar ficava trancado depois das cinco. Naquela sexta, a porta estava aberta.”",
+   chk:["Escolhi uma lenda e disse qual é?","Situei a história na minha cidade ou num lugar conhecido?","O começo já desperta curiosidade?"]},
+  {q:"Escreva o título do seu conto e explique por que ele desperta curiosidade sem entregar o final.",
+   modelo:"O título deve sugerir o assunto e levantar hipóteses. Exemplo: “O rio que voltou” — sugere que algo desaparecido retornou, mas não diz o que acontece com quem o encontra.",
+   chk:["Escrevi o título?","Expliquei que hipótese o título levanta no leitor?","Mostrei que o título não entrega o desfecho?"]}]}
+];
+
+/* ============ MOTOR ============ */
+var CHAVE='legado_port7_cap08_leitura';
+var mem={};
+var store={
+  get:function(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},
+  set:function(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},
+  del:function(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}
+};
+var E={blocos:{},atualizado:null};
+(function(){var b=store.get(CHAVE);if(b){try{var o=JSON.parse(b);if(o&&o.blocos)E=o}catch(e){}}})();
+
+function salvar(){E.atualizado=new Date().toISOString();store.set(CHAVE,JSON.stringify(E));mostrarQuando()}
+function mostrarQuando(){
+  var el=document.getElementById('quando');
+  if(!E.atualizado){el.textContent='Ainda não há nada salvo.';return}
+  var d=new Date(E.atualizado);
+  el.textContent='Último salvamento: '+d.toLocaleDateString('pt-BR')+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function estBloco(i){
+  if(!E.blocos[i])E.blocos[i]={resp:['','',''],feito:false,quando:null,transcrita:[false,false,false],tentou:['','',''],chk:[[],[],[]]};
+  return E.blocos[i];
+}
+
+/* --- anticópia --- */
+function palavras(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/<[^>]*>/g,' ')
+    .replace(/[^a-z0-9\s]/g,' ')
+    .split(/\s+/).filter(function(w){return w.length>0});
+}
+function grams(arr,k){var s={};for(var i=0;i+k<=arr.length;i++){s[arr.slice(i,i+k).join(' ')]=1}return s}
+function marcar(a,b,k){
+  var m=new Array(a.length);for(var i=0;i<a.length;i++)m[i]=false;
+  if(a.length<k||b.length<k)return m;
+  var g=grams(b,k);
+  for(var i2=0;i2+k<=a.length;i2++){
+    if(g[a.slice(i2,i2+k).join(' ')]){for(var j=i2;j<i2+k;j++)m[j]=true}
+  }
+  return m;
+}
+function ehTranscricao(resp,textoBloco,enunciado){
+  var a=palavras(resp);
+  if(a.length<8)return false;
+  var q=palavras(enunciado);
+  var mq=marcar(a,q,4);
+  var a2=[];for(var i=0;i<a.length;i++){a2.push(mq[i]?'§'+i:a[i])}
+  var b=palavras(textoBloco);
+  var m8=marcar(a2,b,8);
+  for(var j=0;j<m8.length;j++){if(m8[j])return true}
+  var m5=marcar(a2,b,5),c=0;
+  for(var k2=0;k2<m5.length;k2++){if(m5[k2])c++}
+  return (c/a2.length)>0.6;
+}
+
+/* --- render --- */
+function render(){
+  var host=document.getElementById('blocos');host.innerHTML='';
+  DADOS.forEach(function(d,i){
+    var st=estBloco(i);
+    var aberto = (i===0) || (E.blocos[i-1] && E.blocos[i-1].feito);
+    var sec=document.createElement('section');
+    sec.className='bloco'+(aberto?'':' travado');
+    var textoPuro=d.texto.join(' ')+' '+(d.destaque||'');
+    var statusTxt = st.feito ? (blocoOk(i)?'✅ ok':'🔁 revisar') : '';
+    var h='<div class="cab"><div class="ic">'+d.ic+'</div><div><div class="et">'+d.et+'</div><h2>'+d.titulo+'</h2></div><div class="status">'+statusTxt+'</div></div>';
+    if(!aberto){
+      h+='<div class="cadeado">🔒 Esta parte abre quando você conferir a parte anterior.</div>';
+      sec.innerHTML=h;host.appendChild(sec);return;
+    }
+    h+='<div class="corpo">';
+    d.texto.forEach(function(p){h+='<p class="texto">'+p+'</p>'});
+    if(d.destaque)h+='<div class="destaque">💡 '+d.destaque+'</div>';
+    d.perg.forEach(function(p,j){
+      var verm=st.transcrita[j];
+      h+='<div class="perg'+(verm?' vermelha':'')+'" id="p'+i+'_'+j+'">';
+      h+='<p class="enun"><span class="n">'+(j+1)+'</span>'+p.q+'</p>';
+      h+='<textarea id="t'+i+'_'+j+'" placeholder="Escreva aqui com as suas palavras...">'+(st.resp[j]||'').replace(/</g,'&lt;')+'</textarea>';
+      h+='<div class="alerta" id="al'+i+'_'+j+'"></div>';
+      h+='<div class="modelo'+(st.feito?' ver':'')+'" id="mo'+i+'_'+j+'"><div class="tit">Resposta modelo</div>'+p.modelo+'<div class="chk" id="ck'+i+'_'+j+'"></div></div>';
+      h+='</div>';
+    });
+    h+='<div class="acoes"><button class="btn conferir" id="cf'+i+'">✓ Conferir esta parte</button><span class="dica-btn" id="dc'+i+'"></span></div>';
+    h+='</div>';
+    sec.innerHTML=h;host.appendChild(sec);
+
+    d.perg.forEach(function(p,j){
+      var ta=document.getElementById('t'+i+'_'+j);
+      ta.addEventListener('input',function(){
+        st.resp[j]=ta.value;
+        if(st.transcrita[j] && !ehTranscricao(ta.value,textoPuro,p.q)){
+          st.transcrita[j]=false;
+          document.getElementById('p'+i+'_'+j).classList.remove('vermelha');
+          var al=document.getElementById('al'+i+'_'+j);al.className='alerta';al.innerHTML='';
+          listaRevisar();
+        }
+        botao(i);salvar();
+      });
+      if(st.feito)montarChk(i,j);
+      if(st.transcrita[j]){
+        var al=document.getElementById('al'+i+'_'+j);
+        al.className='alerta vermelho';
+        al.innerHTML='🔴 Esta resposta ficou muito parecida com o texto. Ela entrou na lista “para revisar”. Reescreva com as suas palavras a qualquer momento e a marca some.';
+      }
+    });
+    document.getElementById('cf'+i).addEventListener('click',function(){conferir(i,textoPuro)});
+    botao(i);
+  });
+  progresso();listaRevisar();
+  document.getElementById('fim').classList.toggle('ver', !!(E.blocos[DADOS.length-1]&&E.blocos[DADOS.length-1].feito));
+}
+function botao(i){
+  var st=estBloco(i),ok=true;
+  for(var j=0;j<3;j++){if(!st.resp[j]||st.resp[j].trim().length<3)ok=false}
+  var b=document.getElementById('cf'+i);if(!b)return;
+  b.disabled=!ok;
+  document.getElementById('dc'+i).textContent = ok?'':'Responda as 3 perguntas (pelo menos 3 letras cada) para liberar.';
+}
+function conferir(i,textoPuro){
+  var st=estBloco(i),d=DADOS[i],travou=false;
+  for(var j=0;j<3;j++){
+    var al=document.getElementById('al'+i+'_'+j);
+    var copia=ehTranscricao(st.resp[j],textoPuro,d.perg[j].q);
+    if(copia){
+      if(!st.tentou[j]){
+        st.tentou[j]=st.resp[j];
+        al.className='alerta amarelo';
+        al.innerHTML='⚠️ Boa parte desta resposta está igual ao texto. Tente reescrever com as suas palavras — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto e mais simples: o que vale é ser <b>seu</b>.';
+        travou=true;
+      }else if(st.tentou[j]===st.resp[j]){
+        al.className='alerta amarelo';
+        al.innerHTML='⚠️ A resposta continua igual. Mude alguma coisa antes de conferir de novo.';
+        travou=true;
+      }else{
+        st.transcrita[j]=true;
+        document.getElementById('p'+i+'_'+j).classList.add('vermelha');
+        al.className='alerta vermelho';
+        al.innerHTML='🔴 Esta resposta ficou muito parecida com o texto. Ela entrou na lista “para revisar”. Reescreva com as suas palavras a qualquer momento e a marca some.';
+      }
+    }else{
+      st.transcrita[j]=false;
+      document.getElementById('p'+i+'_'+j).classList.remove('vermelha');
+      al.className='alerta';al.innerHTML='';
+    }
+  }
+  salvar();
+  if(travou){listaRevisar();return}
+  st.feito=true;st.quando=new Date().toISOString();
+  salvar();render();
+  var alvo=document.getElementById('blocos').children[Math.min(i+1,DADOS.length-1)];
+  if(alvo)alvo.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function montarChk(i,j){
+  var st=estBloco(i),itens=DADOS[i].perg[j].chk,host=document.getElementById('ck'+i+'_'+j);
+  if(!host)return;host.innerHTML='';
+  itens.forEach(function(t,k){
+    var val=st.chk[j][k];
+    var div=document.createElement('div');div.className='linha';
+    div.innerHTML='<span>'+t+'</span>'+
+      '<button class="sim'+(val==='sim'?' on':'')+'" data-v="sim">Sim</button>'+
+      '<button class="nao'+(val==='nao'?' on':'')+'" data-v="nao">Não</button>';
+    div.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        st.chk[j][k]=b.getAttribute('data-v');
+        salvar();montarChk(i,j);atualizarStatus(i);listaRevisar();
+      });
+    });
+    host.appendChild(div);
+  });
+}
+function blocoOk(i){
+  var st=estBloco(i);
+  for(var j=0;j<3;j++){
+    if(st.transcrita[j])return false;
+    var itens=DADOS[i].perg[j].chk;
+    for(var k=0;k<itens.length;k++){if(st.chk[j][k]!=='sim')return false}
+  }
+  return true;
+}
+function atualizarStatus(i){
+  var sec=document.getElementById('blocos').children[i];
+  if(!sec)return;var s=sec.querySelector('.status');
+  if(s&&estBloco(i).feito)s.textContent=blocoOk(i)?'✅ ok':'🔁 revisar';
+}
+function progresso(){
+  var f=0;for(var i=0;i<DADOS.length;i++){if(E.blocos[i]&&E.blocos[i].feito)f++}
+  document.getElementById('prog').style.width=(f/DADOS.length*100)+'%';
+}
+function listaRevisar(){
+  var ul=document.getElementById('listaRevisar');if(!ul)return;ul.innerHTML='';
+  var n=0;
+  DADOS.forEach(function(d,i){
+    var st=E.blocos[i];if(!st)return;
+    d.perg.forEach(function(p,j){
+      if(st.transcrita&&st.transcrita[j]){
+        var li=document.createElement('li');
+        li.innerHTML='🔴 <b>'+d.titulo+'</b> — pergunta '+(j+1)+': resposta copiada do texto.';
+        ul.appendChild(li);n++;
+      }
+      if(st.feito&&st.chk&&st.chk[j]){
+        p.chk.forEach(function(t,k){
+          if(st.chk[j][k]==='nao'){
+            var li2=document.createElement('li');
+            li2.innerHTML='🔁 <b>'+d.titulo+'</b> — pergunta '+(j+1)+': “'+t+'” → marcado <b>Não</b>.';
+            ul.appendChild(li2);n++;
+          }
+        });
+      }
+    });
+  });
+  if(n===0){var li3=document.createElement('li');li3.style.background='#12251c';li3.style.borderColor='#2f6b4c';li3.innerHTML='🎉 Nada pendente até aqui. Muito bem!';ul.appendChild(li3)}
+}
+
+/* --- modal --- */
+function modal(tit,txt,onSim){
+  var m=document.getElementById('modal');
+  document.getElementById('mTit').textContent=tit;
+  document.getElementById('mTxt').textContent=txt;
+  m.classList.add('ver');
+  var sim=document.getElementById('mSim'),nao=document.getElementById('mNao');
+  function fecha(){m.classList.remove('ver');sim.onclick=null;nao.onclick=null}
+  sim.onclick=function(){fecha();if(onSim)onSim()};
+  nao.onclick=fecha;
+}
+
+/* --- exportar / importar / zerar --- */
+document.getElementById('btExp').addEventListener('click',function(){
+  var saida={material:'leitura',capitulo:'Cap. 08 — Contos de mistério e de terror',atualizado:E.atualizado,blocos:[]};
+  DADOS.forEach(function(d,i){
+    var st=E.blocos[i];if(!st)return;
+    saida.blocos.push({parte:d.titulo,feito:st.feito,quando:st.quando,
+      respostas:st.resp,transcrita:st.transcrita,tentou:st.tentou,chk:st.chk,status:st.feito?(blocoOk(i)?'ok':'revisar'):'pendente'});
+  });
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(saida,null,2)],{type:'application/json'}));
+  a.download='leitura-contos-misterio-terror.json';a.click();
+});
+document.getElementById('btImp').addEventListener('click',function(){document.getElementById('arq').click()});
+document.getElementById('arq').addEventListener('change',function(ev){
+  var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){
+    try{
+      var o=JSON.parse(r.result);
+      if(o.blocos){o.blocos.forEach(function(b,i){
+        E.blocos[i]={resp:b.respostas||['','',''],feito:!!b.feito,quando:b.quando||null,
+          transcrita:b.transcrita||[false,false,false],tentou:b.tentou||['','',''],chk:b.chk||[[],[],[]]};
+      });salvar();render();modal('Pronto','Progresso importado com sucesso.',null)}
+    }catch(e){modal('Não deu','Não consegui ler esse arquivo. Ele precisa ser o .json exportado por este material.',null)}
+  };r.readAsText(f);
+});
+document.getElementById('btZerar').addEventListener('click',function(){
+  modal('Apagar tudo?','Isso apaga todas as respostas desta Leitura Guiada neste aparelho. Não dá para desfazer.',function(){
+    E={blocos:{},atualizado:null};store.del(CHAVE);render();mostrarQuando();
+  });
+});
+
+render();mostrarQuando();
+</script>
+</body>
+</html>

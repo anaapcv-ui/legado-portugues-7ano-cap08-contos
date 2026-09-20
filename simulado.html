@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulado — Contos de mistério e de terror | 7º ano</title>
+<style>
+:root{--tinta:#12141a;--tinta2:#1b1f27;--tinta3:#242a35;--papel:#e9dec7;--papel2:#c6bba4;--papel3:#8d8676;--brasa:#e2652a;--brasa2:#f59a5e;--azul:#15243d;--verde:#4caf7d;--vermelho:#d5372f;--amarelo:#f2d06b;--serif:Georgia,'Times New Roman',serif;--sans:'Segoe UI',system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--tinta);color:var(--papel);font-family:var(--serif);line-height:1.6;font-size:17px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.capa{background:linear-gradient(160deg,#101a2b,#15243d 60%,#1b2e4d);border-bottom:5px solid var(--vermelho);padding:26px 0 20px}
+header.capa .selo{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8fb2e0}
+header.capa h1{font-size:27px;margin:8px 0 6px}
+header.capa p.sub{margin:0;color:#b9c7dc;font-size:15px}
+nav.abas{background:var(--tinta2);border-bottom:1px solid #333}
+nav.abas .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px}
+nav.abas a{font-family:var(--sans);font-size:13px;text-decoration:none;color:var(--papel2);background:var(--tinta3);border:1px solid #39404d;border-radius:20px;padding:6px 13px;white-space:nowrap}
+nav.abas a.atual{background:var(--vermelho);color:#fff;border-color:var(--vermelho)}
+.barraprog{position:sticky;top:0;z-index:20;height:8px;background:#0d0f13}
+.barraprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--vermelho),var(--amarelo));transition:width .3s}
+.cabecalho{background:var(--tinta2);border:1px solid #333b47;border-left:6px solid var(--vermelho);border-radius:10px;padding:16px 18px;margin:20px 0;font-family:var(--sans);font-size:15px}
+.cabecalho .esc{font-weight:700;font-size:17px;color:var(--papel)}
+.cabecalho .meta{color:var(--papel3);font-size:14px;margin-top:4px}
+#faixaCodigo{display:none;background:#12251c;border:2px solid var(--verde);border-radius:12px;padding:18px;margin:20px 0;text-align:center;font-family:var(--sans)}
+#faixaCodigo.ver{display:block}
+#faixaCodigo .cod{font-size:30px;font-weight:800;letter-spacing:.14em;color:var(--verde);margin:8px 0}
+.q{background:var(--tinta2);border:1px solid #333b47;border-radius:12px;padding:16px 18px;margin:16px 0}
+.q .num{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8fb2e0}
+.q .num .tipo{background:var(--tinta3);border:1px solid #4a5364;border-radius:12px;padding:2px 9px;margin-left:8px;color:var(--brasa2)}
+.q .num .val{float:right;color:var(--papel3);text-transform:none;letter-spacing:0}
+.q .enun{margin:8px 0 12px}
+.trecho{background:#171b22;border-left:4px solid var(--brasa);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:16px}
+.alt{display:flex;gap:10px;align-items:flex-start;background:#171b22;border:1px solid #333b47;border-radius:9px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-family:var(--sans);font-size:15px}
+.alt:hover{border-color:var(--vermelho)}
+.alt.sel{border-color:var(--vermelho);background:#2a1618}
+.alt.travada{cursor:default}
+.alt.certa{border-color:var(--verde);background:#12251c}
+.alt.errada{border-color:#4a5364;background:#20242c;opacity:.75}
+.alt .letra{font-weight:800;color:#8fb2e0;min-width:20px}
+.coment{display:none;font-family:var(--sans);font-size:14px;margin-top:6px;padding-left:30px;color:var(--papel2)}
+.coment.ver{display:block}
+.coment.ok{color:#9fe0bd}
+.somatorio .item{display:flex;gap:10px;background:#171b22;border:1px solid #333b47;border-radius:8px;padding:9px 12px;margin-bottom:7px;font-family:var(--sans);font-size:15px}
+.somatorio .item b{color:var(--brasa2);min-width:24px}
+.campoNum{margin-top:10px;font-family:var(--sans);font-size:15px}
+.campoNum input{background:#0f1218;border:1px solid #3a4250;color:var(--papel);border-radius:8px;padding:10px;font-size:18px;width:110px;text-align:center}
+textarea.disc{width:100%;min-height:130px;background:#0f1218;color:var(--papel);border:1px solid #3a4250;border-radius:8px;padding:11px;font-family:var(--sans);font-size:15px;resize:vertical}
+.respmodelo{display:none;margin-top:12px;padding:12px 14px;background:#12251c;border:1px solid #2f6b4c;border-radius:8px;font-size:15px}
+.respmodelo.ver{display:block}
+.respmodelo .tit{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-bottom:6px}
+.btn{font-family:var(--sans);font-weight:700;border:0;border-radius:24px;padding:12px 26px;font-size:16px;cursor:pointer}
+.btn.acao{background:var(--vermelho);color:#fff}
+.btn.acao:disabled{background:#3a4250;color:#7c8598;cursor:not-allowed}
+.btn.sec{background:var(--tinta3);color:var(--papel);border:1px solid #4a5364;font-size:15px;padding:11px 20px}
+.centro{text-align:center;margin:26px 0}
+.aviso{font-family:var(--sans);font-size:14px;color:var(--papel3);text-align:center;margin-top:8px}
+.cxcodigo{background:var(--tinta2);border:1px solid #333b47;border-radius:12px;padding:18px;margin:20px 0;font-family:var(--sans);display:none}
+.cxcodigo.ver{display:block}
+.cxcodigo input{background:#0f1218;border:1px solid #3a4250;color:var(--papel);border-radius:8px;padding:11px;font-size:17px;width:180px;letter-spacing:.1em;text-transform:uppercase}
+footer.salv{background:var(--tinta2);border-top:1px solid #333;margin-top:30px;padding:18px 0 40px;font-family:var(--sans);font-size:14px}
+footer.salv .linhabtn{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+footer.salv .quando{color:var(--papel3);font-size:13px}
+.proximo{display:block;text-align:center;background:var(--brasa);color:#fff;text-decoration:none;font-family:var(--sans);font-weight:700;padding:14px;border-radius:12px;margin:24px 0}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+#modal.ver{display:flex}
+#modal .cx{background:var(--tinta2);border:1px solid #4a5364;border-radius:14px;max-width:420px;width:100%;padding:20px;font-family:var(--sans)}
+#modal .bts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+@media(max-width:600px){header.capa h1{font-size:22px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="barraprog"><i id="prog"></i></div>
+<header class="capa"><div class="wrap">
+  <div class="selo">📖 Quarta Capa · Literatura · 7º ano</div>
+  <h1>📝 Simulado — Arrepios: contos de mistério e de terror</h1>
+  <p class="sub">28 questões no formato da prova. Responda todas para enviar.</p>
+</div></header>
+<nav class="abas"><div class="wrap">
+  <a href="index.html">🏠 Início</a>
+  <a href="leitura.html">📖 Leitura Guiada</a>
+  <a href="quiz.html">🎯 Quiz</a>
+  <a href="resumo.html">🗺️ Resumo</a>
+  <a href="simulado.html" class="atual">📝 Simulado</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="cabecalho">
+    <div class="esc">AVALIAÇÃO DE LÍNGUA PORTUGUESA — LITERATURA</div>
+    <div class="meta">7º ano do Ensino Fundamental · Capítulo 08: Arrepios — contos de mistério e de terror · 28 questões · valor total 10,0</div>
+    <div class="meta">Instruções: leia com atenção, responda todas as questões e só então envie. Depois do envio as respostas ficam travadas.</div>
+  </div>
+  <div id="faixaCodigo">
+    <div>✅ Você acertou <b id="acertos">0</b> de 27 questões objetivas</div>
+    <div class="cod" id="codigo">SIM-00-XX</div>
+    <div>A questão 28 é discursiva: a correção fica com a mãe ou o pai, usando a resposta modelo do gabarito.</div>
+  </div>
+  <div id="questoes"></div>
+  <div class="centro">
+    <button class="btn acao" id="btEnviar">Enviar simulado</button>
+    <div class="aviso" id="avisoEnvio"></div>
+  </div>
+  <div class="cxcodigo" id="cxCod">
+    <div>🔑 <b>Para ver o gabarito comentado</b>, digite o código de liberação:</div>
+    <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <input id="inpCod" placeholder="SIM-__-__" maxlength="9">
+      <button class="btn sec" id="btAbrir">Abrir gabarito</button>
+      <span id="msgCod" style="font-size:14px"></span>
+    </div>
+  </div>
+  <a class="proximo" href="index.html">🏠 Voltar ao início do kit</a>
+</div>
+
+<footer class="salv"><div class="wrap">
+  <div>💾 <b>Suas respostas são salvas sozinhas neste aparelho.</b></div>
+  <div class="quando" id="quando">—</div>
+  <div class="linhabtn">
+    <button class="btn sec" id="btExp">📥 Exportar</button>
+    <button class="btn sec" id="btImp">📤 Importar</button>
+    <button class="btn sec" id="btZerar">🗑️ Zerar tudo</button>
+    <input type="file" id="arq" accept="application/json" style="display:none">
+  </div>
+</div></footer>
+
+<div id="modal"><div class="cx"><h3 id="mTit"></h3><p id="mTxt" style="color:#c6bba4;font-size:15px"></p>
+<div class="bts"><button class="btn sec" id="mNao">Cancelar</button><button class="btn acao" id="mSim">Confirmar</button></div></div></div>
+
+<script>
+var Q=[
+{t:"mc",val:"0,3",q:"Leia o trecho de <i>Do além</i>:",tr:"“Estava quase desistindo de encontrar a peça para compor a moldura do quadro quando, de repente, para meu total espanto, uma delas deslizou suavemente para o lugar correto.”",q2:"Na estrutura da narrativa, esse trecho corresponde a:",
+ alts:[{id:"a",t:"ao conflito, porque é o acontecimento inexplicável que quebra a normalidade da história.",c:"Correta. Até aqui tudo era comum; a peça que se move sozinha instala o problema."},
+ {id:"b",t:"à situação inicial, porque apresenta o cenário e as personagens.",c:"A situação inicial é a mudança para o sobrado antigo, antes do estranho acontecer."},
+ {id:"c",t:"ao desfecho, porque encerra a história.",c:"O desfecho é o jardim florido e o fantasma que não voltou."},
+ {id:"d",t:"a uma descrição do ambiente, sem função na trama.",c:"É uma ação, e justamente a que dispara toda a trama."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"<i>Do além</i> é classificado como conto de MISTÉRIO, e não de terror, porque:",
+ alts:[{id:"a",t:"desperta curiosidade e apreensão, tratando o desconhecido de forma branda, com um desfecho tranquilo.",c:"Correta. O fantasma cuida de flores e a história termina em paz."},
+ {id:"b",t:"não apresenta nenhum elemento sobrenatural.",c:"Apresenta sim: o fantasma da família Florença e o quebra-cabeça que se monta sozinho."},
+ {id:"c",t:"é uma história real, vivida pela autora.",c:"É ficção, história inventada."},
+ {id:"d",t:"não tem suspense em momento nenhum.",c:"Tem, e muito: o suspense é o principal elemento do subgênero."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Leia a abertura de <i>A galinha da bruxa</i>:",tr:"“Na noite mais escura do ano, na hora mais escura da noite.”",q2:"Essa frase contribui para a atmosfera porque:",
+ alts:[{id:"a",t:"marca um tempo narrativo curto e escuro, criando desde a primeira linha o clima de suspense.",c:"Correta. Tempo curto e espaço sombrio são marcas do subgênero."},
+ {id:"b",t:"informa a data exata em que a história aconteceu.",c:"Não há data nenhuma: a marcação é proposital e vaga."},
+ {id:"c",t:"mostra que a história durará vários anos.",c:"Ao contrário: o tempo narrativo é curto."},
+ {id:"d",t:"apresenta o protagonista e o antagonista.",c:"Nenhuma personagem é apresentada nessa frase."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Ainda em <i>A galinha da bruxa</i>: Bruno se perdeu na volta do banheiro porque não tinha acendido a luz para não incomodar os pais. Esse detalhe serve para:",
+ alts:[{id:"a",t:"tornar a cena verossímil e deixar o ambiente escuro, condição necessária ao suspense.",c:"Correta. O autor justifica a escuridão de um jeito comum, e é isso que deixa o estranho mais assustador."},
+ {id:"b",t:"mostrar que Bruno era um menino desobediente.",c:"O gesto é justamente de cuidado com os pais."},
+ {id:"c",t:"explicar o desfecho da história logo no começo.",c:"O desfecho (estarem dentro de um ovo) não é antecipado."},
+ {id:"d",t:"provar que a história é real.",c:"O conto é ficção."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"A fala “— É que estamos dentro de um ovo.”, em <i>A galinha da bruxa</i>, é um exemplo de:",
+ alts:[{id:"a",t:"evento incomum, desconhecido e difícil de explicar, típico dos contos de mistério e de terror.",c:"Correta. É exatamente o tipo de acontecimento que o capítulo descreve."},
+ {id:"b",t:"descrição detalhada do ambiente.",c:"É uma fala (discurso direto), não uma descrição."},
+ {id:"c",t:"uma explicação científica para os fatos.",c:"Não há ciência nenhuma: o fato é inexplicável."},
+ {id:"d",t:"um comentário do narrador onisciente.",c:"É fala de personagem, marcada por travessão."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"São elementos-base de um conto que aparecem em qualquer trecho narrativo bem construído:",
+ alts:[{id:"a",t:"narrador, personagens, espaço, tempo e enredo.",c:"Correta. São os elementos-base de qualquer narrativa, listados no capítulo."},
+ {id:"b",t:"tese, argumentos e conclusão.",c:"São elementos do texto dissertativo-argumentativo."},
+ {id:"c",t:"manchete, lide e corpo da notícia.",c:"São elementos do texto jornalístico."},
+ {id:"d",t:"rima, métrica e estrofe.",c:"São elementos do texto poético."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Em <i>Mistérios de Natal</i>, o dono do estabelecimento chega a considerar acionar a polícia. Essa atitude mostra que:",
+ alts:[{id:"a",t:"ele interpreta os sinais à sua maneira, e é essa suposição equivocada que constrói o suspense do conto.",c:"Correta. O leitor acompanha a desconfiança dele e se engana junto."},
+ {id:"b",t:"realmente havia um assalto em andamento.",c:"O desfecho revela que não: era um coral de Natal."},
+ {id:"c",t:"o narrador é personagem da história.",c:"O narrador observa de fora, em 3ª pessoa."},
+ {id:"d",t:"o conto pertence ao subgênero de ficção científica.",c:"Não há tecnologia futurista alguma."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"O desfecho de <i>Mistérios de Natal</i> surpreende o leitor porque:",
+ alts:[{id:"a",t:"o objeto prateado e o grupo de clientes, que pareciam anunciar um assalto, revelam-se um instrumento e um coral natalino.",c:"Correta. A tensão construída durante todo o conto se desfaz numa cena inofensiva."},
+ {id:"b",t:"o dono da cafeteria é preso pela polícia.",c:"Nada disso acontece no texto."},
+ {id:"c",t:"a moça do sobretudo desaparece sem explicação.",c:"Ela apenas pede um expresso e observa o salão."},
+ {id:"d",t:"o relógio da cafeteria para à meia-noite.",c:"O relógio bate a meia-noite, o que assusta o dono, mas não para."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"No trecho “trocava <b>olhares furtivos</b> com um homem de terno”, a palavra destacada indica olhares:",
+ alts:[{id:"a",t:"dados às escondidas, para que ninguém perceba.",c:"Correta. Furtivo vem da ideia de furto: feito escondido."},
+ {id:"b",t:"demorados e carinhosos.",c:"Não há afeto na cena, e sim desconfiança."},
+ {id:"c",t:"distraídos, sem intenção nenhuma.",c:"Ao contrário: são olhares carregados de intenção."},
+ {id:"d",t:"alegres e festivos.",c:"A atmosfera do trecho é de tensão, não de festa."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Sobre a função do título <i>Mistérios de Natal</i>, é correto afirmar que ele:",
+ alts:[{id:"a",t:"ajuda o leitor a levantar hipóteses sobre o assunto, sem revelar o enredo nem o desfecho.",c:"Correta. Título bom de mistério sugere, mas não entrega."},
+ {id:"b",t:"revela desde o começo que tudo terminaria num coral.",c:"Se revelasse, acabaria com a surpresa."},
+ {id:"c",t:"indica que a história é um relato verdadeiro.",c:"O conto é ficcional."},
+ {id:"d",t:"não tem relação nenhuma com o enredo.",c:"Tem: a história se passa na noite de Natal e é cheia de suposições."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"O foco narrativo de <i>Mistérios de Natal</i> é:",
+ alts:[{id:"a",t:"3ª pessoa, com narrador que observa a cena de fora.",c:"Correta. Ninguém dentro da cafeteria conta a história."},
+ {id:"b",t:"1ª pessoa, com narrador personagem.",c:"Esse é o caso de “Do além”, não deste conto."},
+ {id:"c",t:"1ª pessoa do plural, contada por todos os clientes.",c:"Não existe esse foco no texto."},
+ {id:"d",t:"2ª pessoa, falando diretamente com o leitor.",c:"O narrador não se dirige ao leitor como “você”."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Sobre as personagens do gênero conto, o capítulo afirma que:",
+ alts:[{id:"a",t:"o número é reduzido e o protagonista nem sempre tem um antagonista.",c:"Correta. Está no diagrama do capítulo."},
+ {id:"b",t:"é obrigatório haver um herói e um vilão.",c:"Pegadinha: o antagonista não é obrigatório."},
+ {id:"c",t:"o conto precisa de muitas personagens para ficar interessante.",c:"O conto é curto: o número de personagens é reduzido."},
+ {id:"d",t:"as personagens precisam ser pessoas reais.",c:"O conto é ficção."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Qual das frases abaixo é um exemplo de DESCRIÇÃO?",
+ alts:[{id:"a",t:"“A parede também era mole, e o chão, inclinado; um cheiro de ovo cozido tomava o ar.”",c:"Correta. Mostra como as coisas são: textura, inclinação, cheiro."},
+ {id:"b",t:"“Bruno resolveu voltar, mas escorregou e rolou pela escada.”",c:"É narração: conta ações que acontecem."},
+ {id:"c",t:"“A moça colocou a sombrinha ao lado da porta e seguiu para o balcão.”",c:"É narração: sequência de ações."},
+ {id:"d",t:"“Ele levou a mão ao coração e temeu o pior.”",c:"É narração de ação e reação."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Assinale a alternativa em que a fala está em DISCURSO INDIRETO:",
+ alts:[{id:"a",t:"Bruno perguntou ao pai o que havia atrás daquela porta.",c:"Correta. O narrador conta a fala com as palavras dele, sem travessão."},
+ {id:"b",t:"— O que será que tem aí? — perguntou Bruno.",c:"É discurso direto: fala reproduzida e marcada por travessão."},
+ {id:"c",t:"— Você se machucou? — quis saber a menina.",c:"Também é discurso direto."},
+ {id:"d",t:"— Não, é tudo mole aqui.",c:"Fala reproduzida: discurso direto."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"“Suporte textual”, no capítulo, é:",
+ alts:[{id:"a",t:"o meio em que o texto circula, como o livro impresso ou o livro digital lido em tablets e e-book readers.",c:"Correta. Suporte é o lugar onde o texto aparece para o leitor."},
+ {id:"b",t:"o assunto principal do texto.",c:"Isso é o tema, não o suporte."},
+ {id:"c",t:"a opinião do autor sobre a história.",c:"Não tem relação com suporte."},
+ {id:"d",t:"o conjunto de personagens da narrativa.",c:"Personagens são elemento da narrativa, não suporte."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Leia a quarta capa do livro <i>No escuro</i>, de Ernani Ssó:",tr:"“Você tem medo do escuro? E medo de bruxa? Então, cuidado! Na noite mais escura do ano, na hora mais escura da noite, tudo pode acontecer… Nessas sete histórias de bruxas, aventuras horripilantes […] vão deixá-lo de cabelos arrepiados.”",q2:"A obra é classificada como “livro de contos de mistério e de terror” porque:",
+ alts:[{id:"a",t:"reúne histórias curtas e ficcionais que exploram o desconhecido e têm a intenção de provocar medo.",c:"Correta: são sete histórias (contos), de bruxas (desconhecido/sobrenatural), feitas para arrepiar."},
+ {id:"b",t:"traz reportagens sobre casos reais de bruxaria.",c:"Não são reportagens: são histórias inventadas."},
+ {id:"c",t:"é um livro longo, com uma única história.",c:"São sete histórias curtas."},
+ {id:"d",t:"foi escrito para adultos especialistas em literatura.",c:"A própria linguagem da sinopse mostra que o público é infantojuvenil."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"O texto da quarta capa de <i>No escuro</i> é considerado uma SINOPSE porque:",
+ alts:[{id:"a",t:"apresenta a obra de forma resumida para despertar o interesse, sem revelar o desfecho das histórias.",c:"Correta. É essa a função da sinopse na quarta capa."},
+ {id:"b",t:"conta o final de cada uma das sete histórias.",c:"Justamente o que a sinopse não faz."},
+ {id:"c",t:"traz a biografia completa do autor.",c:"A sinopse apresenta a obra, não a vida do autor."},
+ {id:"d",t:"lista os capítulos em ordem, como um índice.",c:"Índice é outra coisa, e fica dentro do livro."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Qual enredo se encaixa melhor no subgênero TERROR AMBIENTAL?",
+ alts:[{id:"a",t:"Numa cidade sufocada pela poluição, a neblina começa a devolver tudo o que os moradores jogaram no rio.",c:"Correta. O medo nasce das consequências das ações humanas sobre o meio ambiente."},
+ {id:"b",t:"Um detetive investiga o roubo de um quadro num museu europeu.",c:"Isso é conto de investigação."},
+ {id:"c",t:"Uma princesa encantada precisa quebrar um feitiço antes do amanhecer.",c:"Isso é conto de fadas ou maravilhoso."},
+ {id:"d",t:"Uma nave humana coloniza um planeta distante no ano 3000.",c:"Isso é ficção científica."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"“A loira do banheiro” e “o trem fantasma” são exemplos de:",
+ alts:[{id:"a",t:"lendas urbanas.",c:"Correta. É o segundo caldeirão citado no capítulo: histórias que circulam nas cidades."},
+ {id:"b",t:"lendas brasileiras do folclore rural.",c:"Essas seriam o Saci e a Mula sem Cabeça."},
+ {id:"c",t:"atualidades tecnológicas.",c:"Essas seriam videogames, celulares e tecnologia em geral."},
+ {id:"d",t:"contos de fadas.",c:"Não há nada de maravilhoso ou encantado nelas."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"O Saci e a Mula sem Cabeça são citados no capítulo como exemplos de:",
+ alts:[{id:"a",t:"lendas brasileiras que alimentam o terror e o mistério feitos no Brasil.",c:"Correta. É o primeiro caldeirão."},
+ {id:"b",t:"lendas urbanas nascidas nas grandes cidades.",c:"Lendas urbanas são a loira do banheiro e o trem fantasma."},
+ {id:"c",t:"personagens de contos de ficção científica.",c:"Não têm relação com tecnologia futurista."},
+ {id:"d",t:"autores brasileiros de contos de terror.",c:"São personagens do folclore, não autores."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Assinale a alternativa que NÃO é uma característica do gênero conto, segundo o diagrama do capítulo:",
+ alts:[{id:"a",t:"Tempo e espaço narrativos extensos, acompanhando anos da vida das personagens.",c:"Correta. O diagrama diz o contrário: tempo e espaço reduzidos."},
+ {id:"b",t:"Ficção, história inventada; texto literário curto.",c:"É característica, sim."},
+ {id:"c",t:"Estrutura com situação inicial, conflito, clímax e desfecho.",c:"É característica, sim."},
+ {id:"d",t:"Discurso direto, indireto ou indireto livre.",c:"É característica, sim."}],certa:"a"},
+
+{t:"mc",val:"0,3",q:"Na seção <i>#Fica a dica</i>, o capítulo indica o filme <i>Frankenweenie</i> porque ele:",
+ alts:[{id:"a",t:"é uma nova leitura da antiga história de suspense <i>Frankenstein</i>, de Mary Shelley, e trata da perda de um animal de estimação numa atmosfera de mistério e emoção.",c:"Correta. É o que diz a seção #Fica a dica do capítulo."},
+ {id:"b",t:"é um documentário sobre a vida de Mary Shelley.",c:"É um filme de animação, não documentário."},
+ {id:"c",t:"mostra o dia a dia de uma família em uma cafeteria no Natal.",c:"Isso é o conto “Mistérios de Natal”."},
+ {id:"d",t:"apresenta um estudo científico sobre o medo.",c:"Não é um estudo científico."}],certa:"a"},
+
+{t:"mc",val:"0,4",q:"Sobre os contos de mistério e de terror, analise as afirmativas:",
+ tr:"I. São histórias ficcionais criadas com a intenção de provocar medo e pavor.<br>II. Esses contos apresentam obrigatoriamente elementos sobrenaturais.<br>III. Nos contos de mistério, o desconhecido é tratado de forma mais branda.<br>IV. A capacidade de provocar medo é a principal característica dos contos de terror.",
+ q2:"Estão corretas apenas:",
+ alts:[{id:"a",t:"I, III e IV.",c:"Correta. Só a II está errada: o sobrenatural pode ou não aparecer."},
+ {id:"b",t:"I e II.",c:"A II está errada e ainda deixa de fora III e IV, que estão certas."},
+ {id:"c",t:"II e III.",c:"A II está errada."},
+ {id:"d",t:"I, II, III e IV.",c:"A II está errada: o sobrenatural não é obrigatório."}],certa:"a"},
+
+{t:"mc",val:"0,4",q:"Sobre narrador e discurso, analise as afirmativas:",
+ tr:"I. O narrador personagem conta a história em 1ª pessoa e participa dos fatos.<br>II. O narrador onisciente conhece os pensamentos e sentimentos das personagens.<br>III. No discurso direto, o narrador conta a fala usando as próprias palavras.<br>IV. No discurso indireto livre, as vozes do narrador e da personagem se misturam sem marcação.",
+ q2:"Estão corretas apenas:",
+ alts:[{id:"a",t:"I, II e IV.",c:"Correta. A III descreve o discurso indireto, não o direto."},
+ {id:"b",t:"I, II e III.",c:"A III está errada: no direto a fala é reproduzida como foi dita."},
+ {id:"c",t:"II e III.",c:"A III está errada e a I, que está certa, ficou de fora."},
+ {id:"d",t:"III e IV.",c:"A III está errada."}],certa:"a"},
+
+{t:"mc",val:"0,4",q:"Sobre o livro como suporte textual, analise as afirmativas:",
+ tr:"I. A quarta capa também é chamada de contracapa.<br>II. A lombada é a aba dobrada para dentro, na capa e na contracapa.<br>III. A sinopse apresenta a obra e desperta o interesse do leitor.<br>IV. O e-book reader é um dispositivo eletrônico de armazenamento e leitura de livros.",
+ q2:"Estão corretas apenas:",
+ alts:[{id:"a",t:"I, III e IV.",c:"Correta. A II confunde lombada com orelha."},
+ {id:"b",t:"I, II e III.",c:"A II está errada: a aba dobrada é a orelha."},
+ {id:"c",t:"II e IV.",c:"A II está errada."},
+ {id:"d",t:"I e II.",c:"A II está errada e deixa de fora III e IV, corretas."}],certa:"a"},
+
+{t:"som",val:"0,6",q:"<b>Questão de somatório.</b> Sobre o gênero conto, some os números das afirmativas CORRETAS e escreva o resultado:",
+ itens:[["01","O conto apresenta tempo e espaço narrativos reduzidos.",true],
+        ["02","O clímax é a parte que apresenta o cenário e as personagens.",false],
+        ["04","O conto é um texto literário curto e ficcional.",true],
+        ["08","Todo conto precisa obrigatoriamente de um antagonista.",false],
+        ["16","O narrador do conto pode ser observador, personagem ou onisciente.",true]],
+ soma:21,
+ c:"Somatório correto: 01 + 04 + 16 = <b>21</b>. A 02 está errada porque quem apresenta cenário e personagens é a situação inicial (o clímax é o ponto de maior tensão). A 08 está errada porque o protagonista nem sempre tem antagonista."},
+
+{t:"som",val:"0,6",q:"<b>Questão de somatório.</b> Sobre a atmosfera dos contos de mistério e de terror e o terror ambiental, some os números das afirmativas CORRETAS:",
+ itens:[["01","O tempo narrativo geralmente é curto: uma noite ou poucos dias.",true],
+        ["02","Os espaços costumam ser sombrios, com pouca luz e isolados da população.",true],
+        ["04","O ambiente é pouco descrito, para que o leitor imagine tudo sozinho.",false],
+        ["08","O terror ambiental usa o medo e a angústia para tratar de poluição, aquecimento global e extinção de espécies.",true],
+        ["16","O suspense é o principal elemento desses contos.",true]],
+ soma:27,
+ c:"Somatório correto: 01 + 02 + 08 + 16 = <b>27</b>. Só a 04 está errada: o ambiente é <b>detalhado</b> — objetos, pessoas, sentimentos, lugares e cheiros."},
+
+{t:"disc",val:"1,0",q:"<b>Questão discursiva.</b> Explique, com as suas palavras, a diferença entre o conto de mistério e o conto de terror. Em seguida, diga a qual dos dois o conto <i>Do além</i> mais se aproxima e justifique com um acontecimento da história.",
+ modelo:"Os dois subgêneros são ficção, exploram o desconhecido e usam o suspense como principal elemento. A diferença está no efeito buscado: no conto de mistério o desconhecido é tratado de forma mais branda e desperta apreensão e curiosidade, sem levar o leitor a sentir medo de verdade; no conto de terror o desconhecido é explorado para provocar tensão e medo, fazendo o leitor temer o que está por vir — a capacidade de provocar medo é a sua principal característica.<br><br><i>Do além</i> se aproxima mais do <b>mistério</b>. Embora a narradora se assuste quando a peça do quebra-cabeça desliza sozinha e quando encontra o quebra-cabeça inteiro montado, a história caminha para a descoberta de uma explicação (o fantasma da dona da casa, que tinha um dom para cuidar de flores) e termina em paz, com o jardim mais bonito da rua. O que fica no leitor é a curiosidade resolvida, não o medo.<br><br><b>Como corrigir (para a mãe ou o pai):</b> 0,4 se explicou a diferença entre curiosidade (mistério) e medo (terror); 0,3 se classificou <i>Do além</i> como mistério; 0,3 se justificou com um acontecimento do conto."}
+];
+
+/* embaralhar alternativas com semente fixa, guardando a correta pelo ID */
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+Q.forEach(function(q,i){
+  if(q.t!=="mc")return;
+  var r=rng(1000+i*46),a=q.alts.slice();
+  for(var k=a.length-1;k>0;k--){var j=Math.floor(r()*(k+1));var tmp=a[k];a[k]=a[j];a[j]=tmp}
+  q.ordem=a;
+});
+
+var CHAVE='legado_port7_cap08_simulado';
+var mem={};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},
+set:function(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},
+del:function(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
+var E={resp:{},enviado:false,acertos:0,codigo:null,gabarito:false,atualizado:null};
+(function(){var b=store.get(CHAVE);if(b){try{var o=JSON.parse(b);if(o&&o.resp)E=o}catch(e){}}})();
+function salvar(){E.atualizado=new Date().toISOString();store.set(CHAVE,JSON.stringify(E));quando()}
+function quando(){var el=document.getElementById('quando');
+ if(!E.atualizado){el.textContent='Ainda não há nada salvo.';return}
+ var d=new Date(E.atualizado);el.textContent='Último salvamento: '+d.toLocaleDateString('pt-BR')+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
+
+var LETRAS=['a','b','c','d'];
+function respondida(i){
+  var q=Q[i],v=E.resp[i];
+  if(q.t==='mc')return !!v;
+  if(q.t==='som')return v!==undefined&&v!==null&&String(v).trim()!=='';
+  return !!(v&&String(v).trim().length>=20);
+}
+function render(){
+  var host=document.getElementById('questoes');host.innerHTML='';
+  Q.forEach(function(q,i){
+    var d=document.createElement('div');d.className='q';
+    var rot = q.t==='mc'?'múltipla escolha':(q.t==='som'?'somatório':'discursiva');
+    if(i>=22&&i<=24)rot='afirmativas I–IV';
+    var h='<div class="num">Questão '+(i+1)+' de 28 <span class="tipo">'+rot+'</span><span class="val">('+q.val+')</span></div>';
+    h+='<div class="enun">'+q.q+'</div>';
+    if(q.tr)h+='<div class="trecho">'+q.tr+'</div>';
+    if(q.q2)h+='<div class="enun">'+q.q2+'</div>';
+    if(q.t==='mc'){
+      q.ordem.forEach(function(a,p){
+        var sel=E.resp[i]===a.id;
+        var cls='alt'+(sel?' sel':'')+(E.enviado?' travada':'');
+        if(E.gabarito)cls+=(a.id===q.certa?' certa':' errada');
+        h+='<div class="'+cls+'" data-q="'+i+'" data-a="'+a.id+'"><div class="letra">'+LETRAS[p]+')</div><div>'+a.t+
+           '<div class="coment'+(E.gabarito?' ver':'')+(a.id===q.certa?' ok':'')+'">'+(a.id===q.certa?'✅ ':'⬜ ')+a.c+'</div></div></div>';
+      });
+    }else if(q.t==='som'){
+      h+='<div class="somatorio">';
+      q.itens.forEach(function(it){h+='<div class="item"><b>'+it[0]+'</b><span>'+it[1]+'</span></div>'});
+      h+='</div><div class="campoNum">Soma: <input type="number" min="0" max="31" id="s'+i+'" value="'+(E.resp[i]!==undefined&&E.resp[i]!==null?E.resp[i]:'')+'" '+(E.enviado?'disabled':'')+'></div>';
+      if(E.gabarito)h+='<div class="respmodelo ver"><div class="tit">Gabarito comentado</div>'+q.c+'</div>';
+    }else{
+      h+='<textarea class="disc" id="d'+i+'" '+(E.enviado?'disabled':'')+' placeholder="Escreva aqui a sua resposta...">'+((E.resp[i]||'')+'').replace(/</g,'&lt;')+'</textarea>';
+      if(E.gabarito)h+='<div class="respmodelo ver"><div class="tit">Resposta modelo</div>'+q.modelo+'</div>';
+    }
+    d.innerHTML=h;host.appendChild(d);
+  });
+  if(!E.enviado){
+    host.querySelectorAll('.alt').forEach(function(el){
+      el.addEventListener('click',function(){E.resp[+el.getAttribute('data-q')]=el.getAttribute('data-a');salvar();render()});
+    });
+    Q.forEach(function(q,i){
+      if(q.t==='som'){var e1=document.getElementById('s'+i);if(e1)e1.addEventListener('input',function(){E.resp[i]=e1.value;salvar();atualizarBarra()})}
+      if(q.t==='disc'){var e2=document.getElementById('d'+i);if(e2)e2.addEventListener('input',function(){E.resp[i]=e2.value;salvar();atualizarBarra()})}
+    });
+  }
+  atualizarBarra();
+  document.getElementById('faixaCodigo').classList.toggle('ver',E.enviado);
+  document.getElementById('cxCod').classList.toggle('ver',E.enviado&&!E.gabarito);
+  if(E.enviado){document.getElementById('acertos').textContent=E.acertos;document.getElementById('codigo').textContent=E.codigo}
+}
+function atualizarBarra(){
+  var n=0;for(var i=0;i<Q.length;i++){if(respondida(i))n++}
+  document.getElementById('prog').style.width=(n/Q.length*100)+'%';
+  var bt=document.getElementById('btEnviar');
+  bt.disabled=E.enviado||n<Q.length;
+  bt.textContent=E.enviado?'Simulado enviado':'Enviar simulado';
+  document.getElementById('avisoEnvio').textContent=E.enviado?'As respostas ficaram travadas.':(n<Q.length?('Faltam '+(Q.length-n)+' questão(ões). A discursiva precisa de pelo menos 20 letras.'):'Tudo respondido! Pode enviar.');
+}
+function letras2(){var L='ABCDEFGHJKLMNPQRSTUVWXYZ';return L[Math.floor(Math.random()*L.length)]+L[Math.floor(Math.random()*L.length)]}
+document.getElementById('btEnviar').addEventListener('click',function(){
+  modal('Enviar agora?','Depois de enviar você não pode mais mudar as respostas.',function(){
+    var ac=0;
+    Q.forEach(function(q,i){
+      if(q.t==='mc'){if(E.resp[i]===q.certa)ac++}
+      else if(q.t==='som'){if(parseInt(E.resp[i],10)===q.soma)ac++}
+    });
+    E.acertos=ac;E.enviado=true;E.codigo='SIM-'+(ac<10?'0':'')+ac+'-'+letras2();
+    salvar();render();window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.getElementById('btAbrir').addEventListener('click',function(){
+  var v=document.getElementById('inpCod').value.trim().toUpperCase(),m=document.getElementById('msgCod');
+  if(v===E.codigo){E.gabarito=true;salvar();render()}else{m.textContent='Código incorreto.';m.style.color='#d5372f'}
+});
+document.getElementById('btExp').addEventListener('click',function(){
+  var det=Q.map(function(q,i){
+    var o={n:i+1,tipo:q.t,resposta:E.resp[i]===undefined?null:E.resp[i]};
+    if(q.t==='mc'){o.certa=q.certa;o.acertou=E.resp[i]===q.certa}
+    if(q.t==='som'){o.soma=q.soma;o.acertou=parseInt(E.resp[i],10)===q.soma}
+    if(q.t==='disc'){o.corrigirEmCasa=true}
+    return o;
+  });
+  var o={material:'simulado',capitulo:'Cap. 08 — Contos de mistério e de terror',enviado:E.enviado,acertos:E.acertos,totalObjetivas:27,codigo:E.codigo,atualizado:E.atualizado,questoes:det};
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}));
+  a.download='simulado-contos-misterio-terror.json';a.click();
+});
+document.getElementById('btImp').addEventListener('click',function(){document.getElementById('arq').click()});
+document.getElementById('arq').addEventListener('change',function(ev){
+  var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){try{var o=JSON.parse(r.result);
+    if(o.questoes){E.resp={};o.questoes.forEach(function(x,i){if(x.resposta!==null&&x.resposta!==undefined)E.resp[i]=x.resposta});
+    E.enviado=!!o.enviado;E.acertos=o.acertos||0;E.codigo=o.codigo||null;E.gabarito=false;salvar();render();
+    modal('Pronto','Respostas importadas.',null)}
+  }catch(e){modal('Não deu','Não consegui ler esse arquivo.',null)}};r.readAsText(f);
+});
+document.getElementById('btZerar').addEventListener('click',function(){
+  modal('Apagar tudo?','Isso apaga as respostas e o código deste Simulado neste aparelho.',function(){
+    E={resp:{},enviado:false,acertos:0,codigo:null,gabarito:false,atualizado:null};store.del(CHAVE);render();quando();
+  });
+});
+function modal(t,x,ok){
+  var m=document.getElementById('modal');document.getElementById('mTit').textContent=t;document.getElementById('mTxt').textContent=x;
+  m.classList.add('ver');var s=document.getElementById('mSim'),n=document.getElementById('mNao');
+  function f(){m.classList.remove('ver');s.onclick=null;n.onclick=null}
+  s.onclick=function(){f();if(ok)ok()};n.onclick=f;
+}
+render();quando();
+</script>
+</body>
+</html>
